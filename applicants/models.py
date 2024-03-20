@@ -35,7 +35,7 @@ class Applicant(models.Model):
 
 
 class ApplicantProfile(models.Model):
-    student = models.OneToOneField(
+    applicant = models.OneToOneField(
         Applicant, on_delete=models.CASCADE, related_name="profile"
     )
     highest_qualification = models.CharField(max_length=100)
@@ -49,7 +49,14 @@ class ApplicantProfile(models.Model):
     passing_year = models.IntegerField(null=True, blank=True)
     cgpa = models.DecimalField(max_digits=4, decimal_places=2)
     skills = models.ManyToManyField("Skill", related_name="students")
+    address = models.TextField()
+    city = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
+    pincode = models.CharField(max_length=6)
     attachments = GenericRelation(Attachment)
+    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     @property
     def resume(self):
