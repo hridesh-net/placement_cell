@@ -7,9 +7,6 @@ from rest_framework.response import Response
 from .models import Applicant
 from .serializers import ApplicantCreatSerializer
 
-# Create your views here.
-
-
 class ApplicantView(APIView):
     serializer_class = ApplicantCreatSerializer
     querysets = Applicant.objects.all()
