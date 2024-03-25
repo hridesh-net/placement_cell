@@ -1,4 +1,7 @@
+from datetime import datetime
+
 from django.db import models
+from django.utils import timezone
 from django.contrib.contenttypes.fields import GenericRelation
 
 from marketing.models import Job
@@ -28,10 +31,9 @@ class Skill(models.Model):
 
 
 class Applicant(models.Model):
-    name = (models.CharField(max_length=20),)
+    name = models.CharField(max_length=20, default="Guest")
     email = models.EmailField(unique=True)
     phone_number = models.CharField(max_length=15)
-    address = models.TextField()
 
 
 class ApplicantProfile(models.Model):
@@ -49,13 +51,13 @@ class ApplicantProfile(models.Model):
     passing_year = models.IntegerField(null=True, blank=True)
     cgpa = models.DecimalField(max_digits=4, decimal_places=2)
     skills = models.ManyToManyField("Skill", related_name="students")
-    address = models.TextField()
-    city = models.CharField(max_length=100)
-    state = models.CharField(max_length=100)
-    pincode = models.CharField(max_length=6)
+    address = models.TextField(default="NA")
+    city = models.CharField(max_length=100, default="NA")
+    state = models.CharField(max_length=100, default="NA")
+    pincode = models.CharField(max_length=6, default="NA")
     attachments = GenericRelation(Attachment)
     
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
 
     @property
