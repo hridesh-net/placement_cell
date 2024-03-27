@@ -15,7 +15,6 @@ class AttachmentCreateSerializer(serializers.ModelSerializer):
         # Validate content_type and object_id combination
         content_type = data.get("content_type")
         object_id = data.get("object_id")
-
         if not (content_type and object_id):
             raise serializers.ValidationError(
                 "Both content_type and object_id are required."

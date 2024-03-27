@@ -34,7 +34,8 @@ class Applicant(models.Model):
     name = models.CharField(max_length=20, default="Guest")
     email = models.EmailField(unique=True)
     phone_number = models.CharField(max_length=15)
-
+    def __str__(self):
+        return self.name
 
 class ApplicantProfile(models.Model):
     applicant = models.OneToOneField(
@@ -69,7 +70,8 @@ class ApplicantProfile(models.Model):
     def certificates(self):
         # Fetch the certificates attachments
         return self.attachments.filter(attachment_type="certificates")
-
+    def __str__(self):
+        return self.applicant.name
 
 class Application(models.Model):
     student = models.ForeignKey(Applicant, on_delete=models.CASCADE)
@@ -77,3 +79,5 @@ class Application(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
     application_date = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=12, choices=STATUS_CHOICES, default="applied")
+    def __str__(self):
+        return self.student.name

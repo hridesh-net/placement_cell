@@ -32,7 +32,8 @@ class Organisation(models.Model):
     location = models.CharField(max_length=100)
     
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
-
+    def __str__(self):
+        return self.name
 
 class Job(models.Model):
     title = models.CharField(max_length=100)
@@ -47,5 +48,7 @@ class Job(models.Model):
     openings = models.PositiveIntegerField(default=1)
     perks_benefits = models.TextField(blank=True, null=True)
     attachment_o = GenericRelation(Attachment)
+    def __str__(self):
+        return self.title
 
 
