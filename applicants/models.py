@@ -57,7 +57,7 @@ class ApplicantProfile(models.Model):
     state = models.CharField(max_length=100, default="NA")
     pincode = models.CharField(max_length=6, default="NA")
     attachments = GenericRelation(Attachment)
-    
+
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
 

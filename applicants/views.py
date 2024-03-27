@@ -23,6 +23,7 @@ class ApplicantView(APIView):
     def get(self, request):
         data_count = self.querysets.count()
         params = request.query_params.dict()
+        print(params)
         if params.get("id"):
             querysets = self.querysets.filter(id=params.get("id"))
             applicants = ApplicantCreatSerializer(querysets, many=True)
