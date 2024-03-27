@@ -25,18 +25,20 @@ JOB_TYPE = (
 class Organisation(models.Model):
     name = models.CharField(max_length=100)
     website = models.URLField()
-    logo = models.ImageField(upload_to='company_logos/', null=True, blank=True)
+    logo = models.ImageField(upload_to="company_logos/", null=True, blank=True)
     contact_details = models.CharField(max_length=100, unique=True)
     industry_type = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
-    
+
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 class Job(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
-    work_location = models.CharField(max_length=10, choices=LOCATION_TYPE, default="onsite")
+    work_location = models.CharField(
+        max_length=10, choices=LOCATION_TYPE, default="onsite"
+    )
     job_type = models.CharField(max_length=10, choices=JOB_TYPE, default="full_time")
     eligibility_criteria = models.TextField()
     deadline = models.DateTimeField()
