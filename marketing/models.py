@@ -26,7 +26,7 @@ class Organisation(models.Model):
     name = models.CharField(max_length=100)
     website = models.URLField()
     logo = models.ImageField(upload_to='company_logos/', null=True, blank=True)
-    contact_details = models.CharField(max_length=100)
+    contact_details = models.CharField(max_length=100, unique=True)
     industry_type = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
     
