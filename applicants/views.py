@@ -26,7 +26,7 @@ class ApplicantView(APIView):
     def get(self, request):
         data_count = self.querysets.count()
         params = request.query_params.dict()
-        print(params)
+
         if params.get("id"):
             print("yes")
             querysets = self.querysets.filter(id=params.get("id"))
