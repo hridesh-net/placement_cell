@@ -43,8 +43,8 @@ class ApplicantView(APIView):
         )
 
 class ApplicantProfile(APIView):
-    serializer_class = ApplicantCreatSerializer
-    querysets = ApplicantProfile.object.all()
+    serializer_class =ApplicantProfileCreateSeializer
+    querysets = ApplicantProfile.objects.all()
     
     
     def post(self, request):
@@ -61,26 +61,23 @@ class ApplicantProfile(APIView):
         params = request.query_params.dict()
         if params.get("id"):
             querysets = self.querysets.filter(id=params.get("id"))
-            applicants = ApplicantCreatSerializer(querysets, many=True)
+            applicants = self.serializer_class(querysets, many=True)
             return Response(
                 {"data": applicants.data, "total_count": data_count},
                 status=status.HTTP_200_OK,
             )
         if params.get("name"):
             querysets = self.querysets.filter(name__contains=params.get("name"))
-            applicants = ApplicantCreatSerializer(querysets, many=True)
+            applicants = self.serializer_class(querysets, many=True)
             return Response(
                 {"data": applicants.data, "total_count": data_count},
                 status=status.HTTP_200_OK,
             )
-        applicants = ApplicantCreatSerializer(self.querysets, many=True)
+        applicants = self.serializer_class(self.querysets, many=True)
         return Response(
             {"data": applicants.data, "total_count": data_count}, status=status.HTTP_200_OK
         )
-            
         
-            
-
 
 class ApplicationView(APIView):
     serializer_class = ApplicationCreateSerializer
@@ -100,15 +97,28 @@ class ApplicationView(APIView):
     ########### application get api##############
     def get(self, request):
         data_count = self.querysets.count()
-        params = request.query_params.dict()
-        if params.get("student"):
-            querysets = self.querysets.filter(student = params.get("student"))
+        student = request.query_params.get("student",None)
+        applicant_profile = request.query_params.get("applicant_profile",None)
+        if student: 
+            querysets = self.querysets.filter(student =student)
             application= ApplicationCreateSerializer(querysets, many= True)
             return Response(
                 {"data": application.data, "total_count": data_count},
                 status=status.HTTP_200_OK,
             )
-        return Response({"message": "invalid data"}, status=status.HTTP_400_BAD_REQUEST)    
+            
+        if applicant_profile: 
+            querysets = self.querysets.filter(applicant_profile = applicant_profile ) 
+            application= ApplicationCreateSerializer(querysets, many= True)
+            return Response(
+                {"data": application.data, "total_count": data_count},
+                status=status.HTTP_200_OK,
+            ) 
+        application= ApplicationCreateSerializer(self.querysets, many= True)    
+        return Response(
+                {"data": application.data, "total_count": data_count},
+                status=status.HTTP_200_OK,
+            )    
     
             
         
