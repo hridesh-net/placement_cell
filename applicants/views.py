@@ -42,7 +42,7 @@ class ApplicantView(APIView):
             {"data": applicants.data, "total_count": data_count}, status=status.HTTP_200_OK
         )
 
-class ApplicantProfile(APIView):
+class ApplicantProfileView(APIView):
     serializer_class =ApplicantProfileCreateSeializer
     querysets = ApplicantProfile.objects.all()
     
