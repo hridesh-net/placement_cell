@@ -3,3 +3,4 @@ pcenv/
 .env
 *.pyc
 __pycache__/
+pc-ui
