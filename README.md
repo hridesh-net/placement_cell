@@ -80,3 +80,8 @@ The directory structure of the Placement Cell Service is organized as follows:
 - Jobs: Handles job-related functionalities including models, views, and tests.
 - Marketing: Manages marketing-related functionalities such as models, views, serializers, and tests.
 - Placement Cell: Core module containing settings, URLs, and middleware configurations for the Placement Cell Service.
+
+## Contributers
+
+- [Dhruv Soni](https://github.com/Dhruv-net)
+- [Hridesh Sharma](https://github.com/hridesh-net)
