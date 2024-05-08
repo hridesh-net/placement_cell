@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from .models import *
 from .serializers import *
 
+
 class ApplicantView(APIView):
     serializer_class = ApplicantCreatSerializer
     querysets = Applicant.objects.all()
@@ -39,14 +40,26 @@ class ApplicantView(APIView):
             )
         applicants = ApplicantCreatSerializer(self.querysets, many=True)
         return Response(
-            {"data": applicants.data, "total_count": data_count}, status=status.HTTP_200_OK
+            {"data": applicants.data, "total_count": data_count},
+            status=status.HTTP_200_OK,
         )
 
+    def patch(self, request):
+        data = request.data
+        id = request.query_params.get("id")
+        applicant = Applicant.objects.get(id=id)
+        serial_data = self.serializer_class(applicant, data=data, partial=True)
+        if serial_data.is_valid():
+            serial_data.save()
+            return Response({"data": serial_data.data}, status=status.HTTP_201_CREATED)
+
+        return Response({"message": "invalid data"}, status=status.HTTP_400_BAD_REQUEST)
+
+
 class ApplicantProfileView(APIView):
-    serializer_class =ApplicantProfileCreateSeializer
+    serializer_class = ApplicantProfileCreateSeializer
     querysets = ApplicantProfile.objects.all()
-    
-    
+
     def post(self, request):
         data = request.data
         serial_data = self.serializer_class(data=data)
@@ -55,7 +68,7 @@ class ApplicantProfileView(APIView):
             return Response({"data": serial_data.data}, status=status.HTTP_201_CREATED)
 
         return Response({"message": "invalid data"}, status=status.HTTP_400_BAD_REQUEST)
-    
+
     def get(self, request):
         data_count = self.querysets.count()
         params = request.query_params.dict()
@@ -75,9 +88,10 @@ class ApplicantProfileView(APIView):
             )
         applicants = self.serializer_class(self.querysets, many=True)
         return Response(
-            {"data": applicants.data, "total_count": data_count}, status=status.HTTP_200_OK
+            {"data": applicants.data, "total_count": data_count},
+            status=status.HTTP_200_OK,
         )
-        
+
 
 class ApplicationView(APIView):
     serializer_class = ApplicationCreateSerializer
@@ -94,31 +108,29 @@ class ApplicationView(APIView):
             print(serial_data.errors)
 
         return Response({"message": "invalid data"}, status=status.HTTP_400_BAD_REQUEST)
+
     ########### application get api##############
     def get(self, request):
         data_count = self.querysets.count()
-        student = request.query_params.get("student",None)
-        applicant_profile = request.query_params.get("applicant_profile",None)
-        if student: 
-            querysets = self.querysets.filter(student =student)
-            application= ApplicationCreateSerializer(querysets, many= True)
+        student = request.query_params.get("student", None)
+        applicant_profile = request.query_params.get("applicant_profile", None)
+        if student:
+            querysets = self.querysets.filter(student=student)
+            application = ApplicationCreateSerializer(querysets, many=True)
             return Response(
                 {"data": application.data, "total_count": data_count},
                 status=status.HTTP_200_OK,
             )
-            
-        if applicant_profile: 
-            querysets = self.querysets.filter(applicant_profile = applicant_profile ) 
-            application= ApplicationCreateSerializer(querysets, many= True)
+
+        if applicant_profile:
+            querysets = self.querysets.filter(applicant_profile=applicant_profile)
+            application = ApplicationCreateSerializer(querysets, many=True)
             return Response(
                 {"data": application.data, "total_count": data_count},
                 status=status.HTTP_200_OK,
-            ) 
-        application= ApplicationCreateSerializer(self.querysets, many= True)    
+            )
+        application = ApplicationCreateSerializer(self.querysets, many=True)
         return Response(
-                {"data": application.data, "total_count": data_count},
-                status=status.HTTP_200_OK,
-            )    
-    
-            
-        
+            {"data": application.data, "total_count": data_count},
+            status=status.HTTP_200_OK,
+        )

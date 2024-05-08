@@ -81,6 +81,16 @@ The directory structure of the Placement Cell Service is organized as follows:
 - Marketing: Manages marketing-related functionalities such as models, views, serializers, and tests.
 - Placement Cell: Core module containing settings, URLs, and middleware configurations for the Placement Cell Service.
 
+## Generate Fake Data
+- To create fake data run the following command
+```shell
+python manage.py generate_fake_data <count>
+```
+- count is nomber of records you want in each table
+- eg 
+```shell
+python manage.py generate_fake_data 100
+```
 ## Contributers
 
 - [Dhruv Soni](https://github.com/Dhruv-net)
