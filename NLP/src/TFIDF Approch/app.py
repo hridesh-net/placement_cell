@@ -1,73 +1,77 @@
+from flask import Flask, request, jsonify
 import os
 import google.generativeai as genai
 from dotenv import load_dotenv
-from tqdm import tqdm
 import base64
 import pdf2image
 import io
 
+# Importing url_quote from werkzeug.utils instead of werkzeug.urls
+from werkzeug.utils import url_quote
+
 load_dotenv()
+app = Flask(__name__)
 
 # Configure the Maker Suit Google API from https://makersuite.google.com/app/apikey
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
-def get_gemini_response(input_text, resume_pdf_content, prompt):
+def get_gemini_response(input_text, resume_pdf_content, job_description_pdf_content, prompt):
     try:
-        model = genai.GenerativeModel('gemini-pro-vision')
-        response = model.generate_content([input_text, resume_pdf_content[0], prompt])
+        # import pdb;pdb.set_trace()
+        model = genai.GenerativeModel('gemini-1.0-pro-latest')
+        response = model.generate_content([input_text, resume_pdf_content[0], job_description_pdf_content[0], prompt])
         return response.text
     except Exception as e:
-        print(e)
+        return str(e)
 
-def resume_pdf_setup(file_path):
+def pdf_setup(file_path):
     try:
         with open(file_path, "rb") as file:
             images = pdf2image.convert_from_bytes(file.read())
 
-        current_page = images[0]
+        pdf_parts = []
+        for i, image in enumerate(images):
+            img_byte_array = io.BytesIO()
+            image.save(img_byte_array, format='JPEG')
+            img_byte_array = img_byte_array.getvalue()
 
-        img_byte_array = io.BytesIO()
-        current_page.save(img_byte_array, format='JPEG')
-        img_byte_array = img_byte_array.getvalue()
-
-        pdf_parts = [
-            {
+            pdf_parts.append({
+                "index": i,
                 "mime_type": "image/jpeg",
                 "data": base64.b64encode(img_byte_array).decode()  
-            }
-        ]
+            })
         return pdf_parts
     except Exception as e:
-        print(f"Error processing PDF file {file_path}: {e}")
-        return None
+        return f"Error processing PDF file {file_path}: {e}"
 
+def analyze_resume_and_job_description(resume_content, job_description_content, job_description, prompt):
+    try:
+        resume_pdf_content = pdf_setup(resume_content)
+        job_description_pdf_content = pdf_setup(job_description_content)
 
-def analyze_resume(resume_file, job_description, prompt):
-    resume_pdf_content = resume_pdf_setup(resume_file)
-    print("---------------------------======================---------------")
-    print(resume_pdf_content)  # Check what is returned by resume_pdf_setup
-    print("step1")
-    response = get_gemini_response(prompt, resume_pdf_content, job_description)
-    return response 
+        if not resume_pdf_content or not job_description_pdf_content:
+            return "Error processing resume or job description PDF."
 
+        response = get_gemini_response(prompt, resume_pdf_content, job_description_pdf_content, prompt)
+        return response 
+    except Exception as e:
+        return str(e)
 
-def main(job_description, resume_folder, prompt):
-    # Load job description
-    with open(job_description, 'r', encoding='utf-8') as jd_file:
-        job_description_text = jd_file.read()
+@app.route('/analyze-resume-and-job-description', methods=['POST'])
+def analyze_resume_and_job_description_api():
+    if 'resume' not in request.files or 'job_description' not in request.files or 'prompt' not in request.form:
+        return jsonify({'error': 'Please provide resume, job_description, and prompt.'}), 400
 
-    # Iterate through each resume in the folder
-    for filename in tqdm(os.listdir(resume_folder)):
-        if filename.lower().endswith(".pdf"):
-            resume_path = os.path.join(resume_folder, filename)
-            response = analyze_resume(resume_path, job_description_text, prompt)
-            print(f"Improvement Suggestions for Resume: {filename}")
-            print(response)
-            print()
+    resume = request.files['resume']
+    job_description = request.files['job_description']
+    prompt = request.form['prompt']
+
+    # Read resume and job description content
+    resume_content = resume.read()
+    job_description_content = job_description.read()
+
+    response = analyze_resume_and_job_description(resume_content, job_description_content, job_description.filename, prompt)
+    return jsonify({'response': response})
 
 if __name__ == "__main__":
-    job_description_file_path = input("Enter the path to the job description text file: ")
-    resume_folder_path = input("Enter the path to the folder containing resumes: ")
-    prompt = input("Enter the prompt for analysis: ")
-
-    main(job_description_file_path, resume_folder_path, prompt)
+    app.run(debug=True)
