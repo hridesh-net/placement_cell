@@ -17,7 +17,7 @@ genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
 def get_gemini_response(input_text, resume_pdf_content, job_description_pdf_content, prompt):
     try:
-        # import pdb;pdb.set_trace()
+        
         model = genai.GenerativeModel('gemini-1.0-pro-latest')
         response = model.generate_content([input_text, resume_pdf_content[0], job_description_pdf_content[0], prompt])
         return response.text
@@ -59,18 +59,20 @@ def analyze_resume_and_job_description(resume_content, job_description_content, 
 
 @app.route('/analyze-resume-and-job-description', methods=['POST'])
 def analyze_resume_and_job_description_api():
-    if 'resume' not in request.files or 'job_description' not in request.files or 'prompt' not in request.form:
-        return jsonify({'error': 'Please provide resume, job_description, and prompt.'}), 400
+    if 'resume' not in request.files or 'job_description' not in request.files:
+        return jsonify({'error': 'Please provide both resume and job_description files.'}), 400
 
     resume = request.files['resume']
     job_description = request.files['job_description']
-    prompt = request.form['prompt']
 
-    # Read resume and job description content
+    
+    FIXED_PROMPT = "analyze me these resumes with this job descriptions and tell me hoow much percentage my resume match with job description where they lack accoding to my job description and what can i improve in my resume." 
+
+    
     resume_content = resume.read()
     job_description_content = job_description.read()
 
-    response = analyze_resume_and_job_description(resume_content, job_description_content, job_description.filename, prompt)
+    response = analyze_resume_and_job_description(resume_content, job_description_content, job_description.filename, FIXED_PROMPT)
     return jsonify({'response': response})
 
 if __name__ == "__main__":
