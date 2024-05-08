@@ -2,11 +2,11 @@ import factory
 import factory.fuzzy
 from factory.django import DjangoModelFactory
 
-from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 
 from .models import *
 from attachments.models import Attachment
+from accounts.models import CustomUser
 
 
 ATTACHMENT_TYPE = (
@@ -20,7 +20,7 @@ ATTACHMENT_TYPE = (
 
 class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = User
+        model = CustomUser
 
     username = factory.Faker("user_name")
     email = factory.Faker("email")

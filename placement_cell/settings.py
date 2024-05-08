@@ -44,13 +44,17 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     
+    "accounts",
     "api",
     "marketing",
     "attachments",
     "applicants",
     "jobs",
     "placement_cell",
+    "utils",
 ]
+
+AUTH_USER_MODEL = "accounts.CustomUser"
 
 SITE_ID = 1
 

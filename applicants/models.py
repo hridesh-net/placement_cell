@@ -6,14 +6,15 @@ from django.contrib.contenttypes.fields import GenericRelation
 
 from marketing.models import Job
 from attachments.models import Attachment
+from accounts.models import CustomUser
 
 # Create your models here.
 
-STATUS_CHOICES = [
+STATUS_CHOICES = (
     ("applied", "Applied"),
     ("shortlisted", "Shortlisted"),
     ("rejected", "Rejected"),
-]
+)
 
 YEAR_CHOICES = (
     ("First", "First"),
@@ -41,7 +42,7 @@ class Applicant(models.Model):
 
 class ApplicantProfile(models.Model):
     applicant = models.OneToOneField(
-        Applicant, on_delete=models.CASCADE, related_name="profile"
+        CustomUser, on_delete=models.CASCADE, related_name="profile"
     )
     highest_qualification = models.CharField(max_length=100)
     stream = models.CharField(max_length=100)
@@ -78,7 +79,7 @@ class ApplicantProfile(models.Model):
 
 
 class Application(models.Model):
-    student = models.ForeignKey(Applicant, on_delete=models.CASCADE)
+    student = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     applicant_profile = models.ForeignKey(ApplicantProfile, on_delete=models.CASCADE)
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
     application_date = models.DateTimeField(auto_now_add=True)
