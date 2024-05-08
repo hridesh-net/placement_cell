@@ -4,3 +4,5 @@ pcenv/
 *.pyc
 __pycache__/
 pc-ui
+
+*.pdf
