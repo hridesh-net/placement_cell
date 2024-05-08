@@ -15,4 +15,11 @@
 score = 100*max(0, 1 - metrics.mean_squared_log_error(actual, predicted))
 
 ## Best Model:
-LightBGM algorithm with counvectorized data has the highest score.
+make an google api key from here - https://aistudio.google.com/app/apikey
+
+How to Use -
+1. just run python app.py.
+2. open postman.
+3. Go on Body. -> select Form data.
+4. make 2 keys 'resume' and 'job_description' select type of both as file.
+5. make a POST request on it.

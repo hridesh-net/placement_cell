@@ -103,13 +103,3 @@ print(train_lemma[0])
 print('===========')
 print(test_lemma[0])
 
-
-
-prompt = """Analyze the file and create me a table of persons who are late like 
-    
-    person name:
-    person emp code:
-    late more then 15mins: how many time that also 
-    late more then 30 mins : how many time that also 
-    
-    """
