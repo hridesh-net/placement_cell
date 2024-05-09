@@ -2,14 +2,16 @@ from django.urls import path
 from django.urls import include
 
 from applicants.views import (
-    ApplicantProfileView as ApplicantProfile,
     ApplicantView as Applicant,
     ApplicationView as Application,
+    ApplicantProfileView as ApplicantProfile,
 )
+from accounts.views import LoginAPIView
 from attachments.views import Attachment
 from marketing.views import OrganisationView as Org, JobView as Job
 
 urlpatterns = [
+    path("auth/login/", LoginAPIView.as_view(), name="login"),
     path("applicant/", Applicant.as_view(), name="create-applicant"),
     path(
         "applicantprofile/", ApplicantProfile.as_view(), name="create-applicant-profile"

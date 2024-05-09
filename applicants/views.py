@@ -3,12 +3,17 @@ from django.shortcuts import render
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
 
 from .models import *
 from .serializers import *
 
 
 class ApplicantView(APIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = [IsAuthenticated]
+
     serializer_class = ApplicantCreatSerializer
     querysets = Applicant.objects.all()
 
@@ -57,6 +62,9 @@ class ApplicantView(APIView):
 
 
 class ApplicantProfileView(APIView):
+    uthentication_classes = (TokenAuthentication,)
+    permission_classes = [IsAuthenticated]
+
     serializer_class = ApplicantProfileCreateSeializer
     querysets = ApplicantProfile.objects.all()
 
@@ -94,6 +102,9 @@ class ApplicantProfileView(APIView):
 
 
 class ApplicationView(APIView):
+    uthentication_classes = (TokenAuthentication,)
+    permission_classes = [IsAuthenticated]
+
     serializer_class = ApplicationCreateSerializer
     querysets = Application.objects.all()
 
