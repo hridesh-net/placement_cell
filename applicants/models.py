@@ -79,10 +79,12 @@ class ApplicantProfile(models.Model):
 
 
 class Application(models.Model):
-    student = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    applicant = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     applicant_profile = models.ForeignKey(ApplicantProfile, on_delete=models.CASCADE)
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
     application_date = models.DateTimeField(auto_now_add=True)
+    stage = models.IntegerField(default=1)
+    answers_to_ques = models.JSONField(blank=True, null=True)
     status = models.CharField(max_length=12, choices=STATUS_CHOICES, default="applied")
 
     def __str__(self):

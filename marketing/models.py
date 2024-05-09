@@ -3,6 +3,7 @@ from attachments.models import Attachment
 from django.contrib.contenttypes.fields import GenericRelation
 
 from accounts.models import CustomUser
+
 # Create your models here.
 
 
@@ -33,8 +34,10 @@ class Organisation(models.Model):
     location = models.CharField(max_length=100)
 
     created_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+
     def __str__(self):
         return self.name
+
 
 class Job(models.Model):
     title = models.CharField(max_length=100)
@@ -49,9 +52,9 @@ class Job(models.Model):
     company = models.ForeignKey(Organisation, on_delete=models.CASCADE)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="open")
     openings = models.PositiveIntegerField(default=1)
+    custom_ques = models.JSONField(blank=True, null=True)
     perks_benefits = models.TextField(blank=True, null=True)
     attachment_o = GenericRelation(Attachment)
+
     def __str__(self):
         return self.title
-
-

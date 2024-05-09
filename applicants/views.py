@@ -111,6 +111,17 @@ class ApplicationView(APIView):
     #############Application post api##################
     def post(self, request):
         data = request.data
+        dup_application = self.querysets.filter(
+            aplicant=data.get("applicant"),
+            applicant_profile=data.get("applicant_profile"),
+            job=data.get("job"),
+        )
+        if dup_application:
+            return Response(
+                {"message": "Application already exists"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
         serial_data = self.serializer_class(data=data)
         if serial_data.is_valid():
             serial_data.save()
