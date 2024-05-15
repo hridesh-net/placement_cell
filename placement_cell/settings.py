@@ -59,6 +59,7 @@ AUTH_USER_MODEL = "accounts.CustomUser"
 SITE_ID = 1
 
 MIDDLEWARE = [
+    "kolo.middleware.KoloMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
