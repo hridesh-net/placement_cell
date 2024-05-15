@@ -5,6 +5,7 @@ from marketing.factories import (
     JobFactory,
     AttachmentFactory,
 )
+from applicants.factories import ApplicantProfileFactory
 
 
 class Command(BaseCommand):
@@ -20,6 +21,7 @@ class Command(BaseCommand):
 
         for _ in range(count):
             user = UserFactory.create()
+            ApplicantProfile = ApplicantProfileFactory.create(applicant=user)
             organisation = OrganisationFactory.create(created_by=user)
             job = JobFactory.create(company=organisation)
 
