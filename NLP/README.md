@@ -12,7 +12,7 @@
 </ul>
 
 ## Evaluation metric:
-score = 100*max(0, 1 - metrics.mean_squared_log_error(actual, predicted))
+score = 100*max(0, 1 - metrics.mean_squared_log_error(actual, predicted)
 
 ## Best Model:
 make an google api key from here - https://aistudio.google.com/app/apikey
