@@ -4,5 +4,4 @@ pcenv/
 *.pyc
 __pycache__/
 pc-ui
-**/commiter.py
 *.pdf
