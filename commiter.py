@@ -1,7 +1,6 @@
 import os
 import re
 import random
-from datetime import datetime
 
 def generate_expertise_tag():
     # Generate expertise tag with a random color
@@ -10,6 +9,10 @@ def generate_expertise_tag():
     return expertise_tag
 
 def update_readme(repo_path):
+    # Pull latest changes from remote repository
+    os.system(f"cd {repo_path} && git fetch --all")
+    os.system(f"cd {repo_path} && git pull")
+
     # Read the current content of the README file
     readme_path = os.path.join(repo_path, "README.md")
     with open(readme_path, "r") as readme_file:
@@ -28,8 +31,6 @@ def update_readme(repo_path):
         readme_file.write(updated_content)
 
     # Commit and push changes
-    os.system(f"cd {repo_path} && git fetch --all")
-    os.system(f"cd {repo_path} && git pull")
     os.system(f"cd {repo_path} && git add README.md")
     os.system(f"cd {repo_path} && git commit -m 'Update expertise tag color'")
     os.system(f"cd {repo_path} && git push origin master")
