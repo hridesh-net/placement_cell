@@ -97,4 +97,4 @@ python manage.py generate_fake_data 100
 - [Hridesh Sharma](https://github.com/hridesh-net)
 
 
-<span style='background-color: #C18E6E;'>Python Expert</span>
+<span style='background-color: #D996E1;'>Python Expert</span>
