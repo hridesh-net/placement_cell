@@ -1,0 +1,1182 @@
+{
+	"info": {
+		"_postman_id": "3940d467-a827-430a-b680-b6d1eb54312c",
+		"name": "Placement Cell",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25484489"
+	},
+	"item": [
+		{
+			"name": "Applicant",
+			"item": [
+				{
+					"name": "Create Applicant",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"leo Do\",\n    \"email\": \"leo.do@exam.com\",\n    \"phone_number\": \"+1234567994\",\n    \"address\": \"123 Main Street, Anytown, CA 12345\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/applicant/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"applicant",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"leo Do\",\n    \"email\": \"leo.do@exam.com\",\n    \"phone_number\": \"+1234567994\",\n    \"address\": \"123 Main Street, Anytown, CA 12345\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/applicant/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"applicant",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Tue, 07 May 2024 20:55:15 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.12.1"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "88"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"id\": 6,\n        \"name\": \"leo Do\",\n        \"email\": \"leo.do@exam.com\",\n        \"phone_number\": \"+1234567994\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Applicant",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth_token}}"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/applicant/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"applicant",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Applicant Copy",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/applicant/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"applicant",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Tue, 07 May 2024 20:55:40 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.12.1"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "450"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": 1,\n            \"name\": \"John Doe\",\n            \"email\": \"john.doe@example.com\",\n            \"phone_number\": \"+1234567890\"\n        },\n        {\n            \"id\": 2,\n            \"name\": \"John Doe\",\n            \"email\": \"john.doe@exampl.com\",\n            \"phone_number\": \"+1234567891\"\n        },\n        {\n            \"id\": 3,\n            \"name\": \"John Doe\",\n            \"email\": \"john.doe@examp.com\",\n            \"phone_number\": \"+1234567892\"\n        },\n        {\n            \"id\": 4,\n            \"name\": \"John Doe\",\n            \"email\": \"john.doe@exam.com\",\n            \"phone_number\": \"+1234567893\"\n        },\n        {\n            \"id\": 5,\n            \"name\": \"leo Doe\",\n            \"email\": \"leo.doe@exam.com\",\n            \"phone_number\": \"+1234567894\"\n        }\n    ],\n    \"total_count\": 5\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Applicant by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/applicant/?id=1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"applicant",
+								""
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Applicant by ID",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/applicant/?id=1",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"applicant",
+										""
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Tue, 07 May 2024 20:56:35 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.12.1"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "113"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": 1,\n            \"name\": \"John Doe\",\n            \"email\": \"john.doe@example.com\",\n            \"phone_number\": \"+1234567890\"\n        }\n    ],\n    \"total_count\": 5\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Applicant by Name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/applicant/?name=Jo",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"applicant",
+								""
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Jo"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Applicant by Name",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/applicant/?name=Jo",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"applicant",
+										""
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "Jo"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Tue, 07 May 2024 20:57:47 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.12.1"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "368"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": 1,\n            \"name\": \"John Doe\",\n            \"email\": \"john.doe@example.com\",\n            \"phone_number\": \"+1234567890\"\n        },\n        {\n            \"id\": 2,\n            \"name\": \"John Doe\",\n            \"email\": \"john.doe@exampl.com\",\n            \"phone_number\": \"+1234567891\"\n        },\n        {\n            \"id\": 3,\n            \"name\": \"John Doe\",\n            \"email\": \"john.doe@examp.com\",\n            \"phone_number\": \"+1234567892\"\n        },\n        {\n            \"id\": 4,\n            \"name\": \"John Doe\",\n            \"email\": \"john.doe@exam.com\",\n            \"phone_number\": \"+1234567893\"\n        }\n    ],\n    \"total_count\": 5\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Applicant",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Arpit\",\n    \"address\": \"123 Main Street, Anytown, CA 12345\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/applicant/?id=1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"applicant",
+								""
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update Applicant",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Arpit\",\n    \"address\": \"123 Main Street, Anytown, CA 12345\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/applicant/?id=1",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"applicant",
+										""
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 08 May 2024 17:42:00 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.12.1"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, PATCH, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "92"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"id\": 1,\n        \"name\": \"Arpit\",\n        \"email\": \"john.doe@example.com\",\n        \"phone_number\": \"+1234567890\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Organization",
+			"item": []
+		},
+		{
+			"name": "accounts",
+			"item": [
+				{
+					"name": "User Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"user@example.com\",\n    \"password\": \"securepassword\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/auth/login/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "User Login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"admin@gmail.com\",\n    \"password\": \"test123@\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/auth/login/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"login",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 09 May 2024 18:35:09 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.12.1"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "POST, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "143"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"token\": \"3a910f4505c22940e3b71861b9387f13fc7a6439\",\n    \"id\": 1,\n    \"name\": \"Guest\",\n    \"email\": \"admin@gmail.com\",\n    \"last_login\": \"2024-05-09T18:35:09.838921Z\"\n}"
+						},
+						{
+							"name": "User Login Res",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"user@example.com\",\n    \"password\": \"securepassword\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/auth/login/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"login",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 22 May 2024 02:46:46 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.12.1"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "POST, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "149"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"token\": \"9d99cc1cdb1f780084d3ee070d73c96e733a7105\",\n    \"id\": 241,\n    \"name\": \"John Doe\",\n    \"email\": \"user@example.com\",\n    \"last_login\": \"2024-05-22T02:46:46.351699Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "User Signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"user@example.com\",\n    \"name\": \"John Doe\",\n    \"phone_number\": \"123-456-7890\",\n    \"password\": \"securepassword\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/auth/signup/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"signup",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "User Signup",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"user@example.com\",\n    \"name\": \"John Doe\",\n    \"phone_number\": \"123-456-7890\",\n    \"password\": \"securepassword\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/auth/signup/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"signup",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 22 May 2024 02:44:56 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.12.1"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "POST, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "39"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"User created successfully\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Applicant Profile",
+			"item": [
+				{
+					"name": "Get All Applicants",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth_token}}"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/applicantprofile/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"applicantprofile",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get All Applicants profile",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{auth_token}}"
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/applicantprofile/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"applicantprofile",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 22 May 2024 02:01:58 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.12.1"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "24435"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": 1,\n            \"highest_qualification\": \"Later suffer.\",\n            \"stream\": \"from\",\n            \"year\": \"2022\",\n            \"education_status\": \"Pursuing\",\n            \"passing_year\": 2023,\n            \"cgpa\": \"9.92\",\n            \"address\": \"4346 Nicole Lakes Apt. 790\\nWest Ian, MD 68312\",\n            \"city\": \"New Ryanchester\",\n            \"state\": \"Kentucky\",\n            \"pincode\": \"86020\",\n            \"created_at\": \"2024-05-09T19:12:57.135916Z\",\n            \"updated_at\": \"2024-05-09T19:12:57.138542Z\",\n            \"applicant\": {\n                \"id\": 208,\n                \"password\": \"pbkdf2_sha256$720000$aqnHanEtCFmzl0PCJcmXqy$gKoPZxnPuPCZfrl2lV2bZJQFO8quIP9413v+PjFkxb4=\",\n                \"last_login\": null,\n                \"is_superuser\": false,\n                \"username\": \"chadfoster\",\n                \"first_name\": \"\",\n                \"last_name\": \"\",\n                \"is_staff\": false,\n                \"is_active\": true,\n                \"date_joined\": \"2024-05-09T19:12:56.990790Z\",\n                \"email\": \"adam91@example.org\",\n                \"name\": \"Guest\",\n                \"phone_number\": \"\",\n                \"groups\": [],\n                \"user_permissions\": []\n            },\n            \"skills\": []\n        },\n        {\n            \"id\": 2,\n            \"highest_qualification\": \"Billion.\",\n            \"stream\": \"that\",\n            \"year\": \"2023\",\n            \"education_status\": \"Pursuing\",\n            \"passing_year\": 2015,\n            \"cgpa\": \"5.47\",\n            \"address\": \"07471 Jesse Fields Suite 300\\nLindsayfurt, IL 67270\",\n            \"city\": \"New Robertfurt\",\n            \"state\": \"Illinois\",\n            \"pincode\": \"73137\",\n            \"created_at\": \"2024-05-09T19:12:57.398024Z\",\n            \"updated_at\": \"2024-05-09T19:12:57.398777Z\",\n            \"applicant\": {\n                \"id\": 209,\n                \"password\": \"pbkdf2_sha256$720000$nvSUQV1tCttCosSPZSqq3v$egSInQYzQ/JHtUrGfcJw16XbNDSR9Ei9sGQMBEX48NA=\",\n                \"last_login\": null,\n                \"is_superuser\": false,\n                \"username\": \"angelagreen\",\n                \"first_name\": \"\",\n                \"last_name\": \"\",\n                \"is_staff\": false,\n                \"is_active\": true,\n                \"date_joined\": \"2024-05-09T19:12:57.254818Z\",\n                \"email\": \"nancy87@example.net\",\n                \"name\": \"Guest\",\n                \"phone_number\": \"\",\n                \"groups\": [],\n                \"user_permissions\": []\n            },\n            \"skills\": []\n        },\n        {\n            \"id\": 3,\n            \"highest_qualification\": \"Garden memory himself.\",\n            \"stream\": \"quite\",\n            \"year\": \"2021\",\n            \"education_status\": \"Pursuing\",\n            \"passing_year\": 2011,\n            \"cgpa\": \"8.65\",\n            \"address\": \"60903 Russell Lakes Apt. 026\\nWaltersmouth, PR 04331\",\n            \"city\": \"Cynthiaton\",\n            \"state\": \"Colorado\",\n            \"pincode\": \"18503\",\n            \"created_at\": \"2024-05-09T19:12:57.552356Z\",\n            \"updated_at\": \"2024-05-09T19:12:57.553282Z\",\n            \"applicant\": {\n                \"id\": 210,\n                \"password\": \"pbkdf2_sha256$720000$IWv6skHIFKSZBXIaNhz98g$skS+33bV1UUFgIBZNelMll0NeErRlVnnLlpAYvVyZ4s=\",\n                \"last_login\": null,\n                \"is_superuser\": false,\n                \"username\": \"josebarr\",\n                \"first_name\": \"\",\n                \"last_name\": \"\",\n                \"is_staff\": false,\n                \"is_active\": true,\n                \"date_joined\": \"2024-05-09T19:12:57.407470Z\",\n                \"email\": \"jaydeleon@example.com\",\n                \"name\": \"Guest\",\n                \"phone_number\": \"\",\n                \"groups\": [],\n                \"user_permissions\": []\n            },\n            \"skills\": []\n        },\n        {\n            \"id\": 4,\n            \"highest_qualification\": \"Body.\",\n            \"stream\": \"among\",\n            \"year\": \"2023\",\n            \"education_status\": \"Pursuing\",\n            \"passing_year\": 2011,\n            \"cgpa\": \"4.69\",\n            \"address\": \"29054 Jennifer Hills\\nBeasleyton, WY 67887\",\n            \"city\": \"Juliehaven\",\n            \"state\": \"Virginia\",\n            \"pincode\": \"97729\",\n            \"created_at\": \"2024-05-09T19:12:57.705226Z\",\n            \"updated_at\": \"2024-05-09T19:12:57.706079Z\",\n            \"applicant\": {\n                \"id\": 211,\n                \"password\": \"pbkdf2_sha256$720000$ttP35LLwSThlg39pAQSspo$XbkFatTKVFaSNhgYWLfO3jbqlSlciSqKmtuB795QpAI=\",\n                \"last_login\": null,\n                \"is_superuser\": false,\n                \"username\": \"allenmeyer\",\n                \"first_name\": \"\",\n                \"last_name\": \"\",\n                \"is_staff\": false,\n                \"is_active\": true,\n                \"date_joined\": \"2024-05-09T19:12:57.559080Z\",\n                \"email\": \"michelle97@example.net\",\n                \"name\": \"Guest\",\n                \"phone_number\": \"\",\n                \"groups\": [],\n                \"user_permissions\": []\n            },\n            \"skills\": []\n        },\n        {\n            \"id\": 5,\n            \"highest_qualification\": \"Left high.\",\n            \"stream\": \"anything\",\n            \"year\": \"2021\",\n            \"education_status\": \"Pursuing\",\n            \"passing_year\": 2009,\n            \"cgpa\": \"5.12\",\n            \"address\": \"Unit 2108 Box 1669\\nDPO AE 52437\",\n            \"city\": \"North Zacharychester\",\n            \"state\": \"Texas\",\n            \"pincode\": \"97586\",\n            \"created_at\": \"2024-05-09T19:12:57.857100Z\",\n            \"updated_at\": \"2024-05-09T19:12:57.857639Z\",\n            \"applicant\": {\n                \"id\": 212,\n                \"password\": \"pbkdf2_sha256$720000$kMmddfbNwJkgPsBrgNS9pj$m7BNBmsMjxlEhUHLLOpxfASZnYg43td3j3/GcRjYV70=\",\n                \"last_login\": null,\n                \"is_superuser\": false,\n                \"username\": \"xavierolson\",\n                \"first_name\": \"\",\n                \"last_name\": \"\",\n                \"is_staff\": false,\n                \"is_active\": true,\n                \"date_joined\": \"2024-05-09T19:12:57.711022Z\",\n                \"email\": \"morgan04@example.net\",\n                \"name\": \"Guest\",\n                \"phone_number\": \"\",\n                \"groups\": [],\n                \"user_permissions\": []\n            },\n            \"skills\": []\n        },\n        {\n            \"id\": 6,\n            \"highest_qualification\": \"Throughout issue.\",\n            \"stream\": \"cultural\",\n            \"year\": \"2023\",\n            \"education_status\": \"Finished\",\n            \"passing_year\": 2020,\n            \"cgpa\": \"5.74\",\n            \"address\": \"82216 Valerie Haven Apt. 843\\nDominguezfort, MA 53473\",\n            \"city\": \"Bretttown\",\n            \"state\": \"Mississippi\",\n            \"pincode\": \"85896\",\n            \"created_at\": \"2024-05-09T19:12:58.005334Z\",\n            \"updated_at\": \"2024-05-09T19:12:58.006299Z\",\n            \"applicant\": {\n                \"id\": 213,\n                \"password\": \"pbkdf2_sha256$720000$U4Y7lCHTHLcUNcxyIjviZv$AAp/+tj7Q+8EBbxuX+ngpz7KmRPNKICLABzyl+pajgI=\",\n                \"last_login\": null,\n                \"is_superuser\": false,\n                \"username\": \"jenkinschristopher\",\n                \"first_name\": \"\",\n                \"last_name\": \"\",\n                \"is_staff\": false,\n                \"is_active\": true,\n                \"date_joined\": \"2024-05-09T19:12:57.861793Z\",\n                \"email\": \"courtneyfields@example.com\",\n                \"name\": \"Guest\",\n                \"phone_number\": \"\",\n                \"groups\": [],\n                \"user_permissions\": []\n            },\n            \"skills\": []\n        },\n        {\n            \"id\": 7,\n            \"highest_qualification\": \"Agreement agreement.\",\n            \"stream\": \"available\",\n            \"year\": \"2022\",\n            \"education_status\": \"Finished\",\n            \"passing_year\": 2024,\n            \"cgpa\": \"2.67\",\n            \"address\": \"082 James Field Apt. 151\\nNorth Kristinburgh, SC 24690\",\n            \"city\": \"North James\",\n            \"state\": \"Montana\",\n            \"pincode\": \"65258\",\n            \"created_at\": \"2024-05-09T19:12:58.155536Z\",\n            \"updated_at\": \"2024-05-09T19:12:58.156261Z\",\n            \"applicant\": {\n                \"id\": 214,\n                \"password\": \"pbkdf2_sha256$720000$AOf7t7FzHYtzxdHkNoNbG5$AAFr3Ix9TI5R/imAPNZ4tCT1kwhMSp4Q7GK5jm8xp7k=\",\n                \"last_login\": null,\n                \"is_superuser\": false,\n                \"username\": \"lcole\",\n                \"first_name\": \"\",\n                \"last_name\": \"\",\n                \"is_staff\": false,\n                \"is_active\": true,\n                \"date_joined\": \"2024-05-09T19:12:58.011567Z\",\n                \"email\": \"anthonymiller@example.com\",\n                \"name\": \"Guest\",\n                \"phone_number\": \"\",\n                \"groups\": [],\n                \"user_permissions\": []\n            },\n            \"skills\": []\n        },\n        {\n            \"id\": 8,\n            \"highest_qualification\": \"Window society.\",\n            \"stream\": \"hope\",\n            \"year\": \"2023\",\n            \"education_status\": \"Finished\",\n            \"passing_year\": 2017,\n            \"cgpa\": \"9.60\",\n            \"address\": \"81465 Jason Burg\\nWest Bradley, IL 61570\",\n            \"city\": \"West Michaelberg\",\n            \"state\": \"Hawaii\",\n            \"pincode\": \"34846\",\n            \"created_at\": \"2024-05-09T19:12:58.305087Z\",\n            \"updated_at\": \"2024-05-09T19:12:58.305932Z\",\n            \"applicant\": {\n                \"id\": 215,\n                \"password\": \"pbkdf2_sha256$720000$pGno5maGX7WsSbfgkNgySu$430bGwuBX1Ki5hwA0XKWymAgttzd8nGQQiYjW3pEmw0=\",\n                \"last_login\": null,\n                \"is_superuser\": false,\n                \"username\": \"jessehines\",\n                \"first_name\": \"\",\n                \"last_name\": \"\",\n                \"is_staff\": false,\n                \"is_active\": true,\n                \"date_joined\": \"2024-05-09T19:12:58.160998Z\",\n                \"email\": \"owenalisha@example.net\",\n                \"name\": \"Guest\",\n                \"phone_number\": \"\",\n                \"groups\": [],\n                \"user_permissions\": []\n            },\n            \"skills\": []\n        },\n        {\n            \"id\": 9,\n            \"highest_qualification\": \"Garden clearly cell.\",\n            \"stream\": \"election\",\n            \"year\": \"2023\",\n            \"education_status\": \"Finished\",\n            \"passing_year\": 2022,\n            \"cgpa\": \"2.49\",\n            \"address\": \"6958 Laura Knoll\\nWest Jamieberg, ME 55334\",\n            \"city\": \"Port Mary\",\n            \"state\": \"Alabama\",\n            \"pincode\": \"33160\",\n            \"created_at\": \"2024-05-09T19:12:58.453961Z\",\n            \"updated_at\": \"2024-05-09T19:12:58.454657Z\",\n            \"applicant\": {\n                \"id\": 216,\n                \"password\": \"pbkdf2_sha256$720000$Ou7933Ivy4sKZXMBUhZjLZ$iPQ+EhwZO2WSk/AVXXseaY7VI1sT7Y2drkRcuqOGxpo=\",\n                \"last_login\": null,\n                \"is_superuser\": false,\n                \"username\": \"bmorgan\",\n                \"first_name\": \"\",\n                \"last_name\": \"\",\n                \"is_staff\": false,\n                \"is_active\": true,\n                \"date_joined\": \"2024-05-09T19:12:58.310612Z\",\n                \"email\": \"cookwyatt@example.net\",\n                \"name\": \"Guest\",\n                \"phone_number\": \"\",\n                \"groups\": [],\n                \"user_permissions\": []\n            },\n            \"skills\": []\n        },\n        {\n            \"id\": 10,\n            \"highest_qualification\": \"Top scientist.\",\n            \"stream\": \"even\",\n            \"year\": \"2021\",\n            \"education_status\": \"Finished\",\n            \"passing_year\": 2016,\n            \"cgpa\": \"5.58\",\n            \"address\": \"USNS Wilson\\nFPO AP 58611\",\n            \"city\": \"New Hannah\",\n            \"state\": \"Oregon\",\n            \"pincode\": \"07432\",\n            \"created_at\": \"2024-05-09T19:12:58.602011Z\",\n            \"updated_at\": \"2024-05-09T19:12:58.602712Z\",\n            \"applicant\": {\n                \"id\": 217,\n                \"password\": \"pbkdf2_sha256$720000$JMyB2Q3wjaCxIU1GUqAnDL$8XJrj2LF4cUUgaYE/hyypDCdEj9HSbQEFIQ+797GclA=\",\n                \"last_login\": null,\n                \"is_superuser\": false,\n                \"username\": \"gschaefer\",\n                \"first_name\": \"\",\n                \"last_name\": \"\",\n                \"is_staff\": false,\n                \"is_active\": true,\n                \"date_joined\": \"2024-05-09T19:12:58.459926Z\",\n                \"email\": \"stephenjohnson@example.com\",\n                \"name\": \"Guest\",\n                \"phone_number\": \"\",\n                \"groups\": [],\n                \"user_permissions\": []\n            },\n            \"skills\": []\n        },\n        {\n            \"id\": 11,\n            \"highest_qualification\": \"By item bad.\",\n            \"stream\": \"against\",\n            \"year\": \"2021\",\n            \"education_status\": \"Pursuing\",\n            \"passing_year\": 2025,\n            \"cgpa\": \"5.84\",\n            \"address\": \"249 Burns Squares Suite 445\\nWest Jessicafort, AK 01961\",\n            \"city\": \"Chavezmouth\",\n            \"state\": \"Ohio\",\n            \"pincode\": \"91326\",\n            \"created_at\": \"2024-05-09T19:12:58.751777Z\",\n            \"updated_at\": \"2024-05-09T19:12:58.752487Z\",\n            \"applicant\": {\n                \"id\": 218,\n                \"password\": \"pbkdf2_sha256$720000$nCtfl6f2vHzJBYHXJ3CKEh$bDpYWyVHhziGByfjV2TnjvPhC0YjBlbga/NIDOddpp8=\",\n                \"last_login\": null,\n                \"is_superuser\": false,\n                \"username\": \"deannawood\",\n                \"first_name\": \"\",\n                \"last_name\": \"\",\n                \"is_staff\": false,\n                \"is_active\": true,\n                \"date_joined\": \"2024-05-09T19:12:58.608749Z\",\n                \"email\": \"mitchellalexander@example.org\",\n                \"name\": \"Guest\",\n                \"phone_number\": \"\",\n                \"groups\": [],\n                \"user_permissions\": []\n            },\n            \"skills\": []\n        },\n        {\n            \"id\": 12,\n            \"highest_qualification\": \"Question form cultural.\",\n            \"stream\": \"final\",\n            \"year\": \"2022\",\n            \"education_status\": \"Pursuing\",\n            \"passing_year\": 2023,\n            \"cgpa\": \"6.61\",\n            \"address\": \"186 Tanya Ports Apt. 409\\nKelleystad, LA 53083\",\n            \"city\": \"Robertsport\",\n            \"state\": \"Georgia\",\n            \"pincode\": \"11344\",\n            \"created_at\": \"2024-05-09T19:12:58.899846Z\",\n            \"updated_at\": \"2024-05-09T19:12:58.900644Z\",\n            \"applicant\": {\n                \"id\": 219,\n                \"password\": \"pbkdf2_sha256$720000$Hel7GWbbHUwbwim1eHakhO$dy2Dds37lKNNjKtsQE4c/Yc0Dr4mhXNi1hxqEK1yv3w=\",\n                \"last_login\": null,\n                \"is_superuser\": false,\n                \"username\": \"douglaslove\",\n                \"first_name\": \"\",\n                \"last_name\": \"\",\n                \"is_staff\": false,\n                \"is_active\": true,\n                \"date_joined\": \"2024-05-09T19:12:58.757210Z\",\n                \"email\": \"charlestran@example.com\",\n                \"name\": \"Guest\",\n                \"phone_number\": \"\",\n                \"groups\": [],\n                \"user_permissions\": []\n            },\n            \"skills\": []\n        },\n        {\n            \"id\": 13,\n            \"highest_qualification\": \"National house may.\",\n            \"stream\": \"attorney\",\n            \"year\": \"2023\",\n            \"education_status\": \"Finished\",\n            \"passing_year\": 2021,\n            \"cgpa\": \"5.40\",\n            \"address\": \"6010 Amber Spurs Apt. 734\\nPort Michael, VT 09549\",\n            \"city\": \"Mindymouth\",\n            \"state\": \"Georgia\",\n            \"pincode\": \"39476\",\n            \"created_at\": \"2024-05-09T19:12:59.048022Z\",\n            \"updated_at\": \"2024-05-09T19:12:59.048741Z\",\n            \"applicant\": {\n                \"id\": 220,\n                \"password\": \"pbkdf2_sha256$720000$sM1n48iSygVpDex4cZ0XWA$H15P4ac8cvz+C1jyfhyx6SrSFNEETNiMnmqrEGLf9tA=\",\n                \"last_login\": null,\n                \"is_superuser\": false,\n                \"username\": \"katherine07\",\n                \"first_name\": \"\",\n                \"last_name\": \"\",\n                \"is_staff\": false,\n                \"is_active\": true,\n                \"date_joined\": \"2024-05-09T19:12:58.905357Z\",\n                \"email\": \"cadams@example.org\",\n                \"name\": \"Guest\",\n                \"phone_number\": \"\",\n                \"groups\": [],\n                \"user_permissions\": []\n            },\n            \"skills\": []\n        },\n        {\n            \"id\": 14,\n            \"highest_qualification\": \"Ground through.\",\n            \"stream\": \"business\",\n            \"year\": \"2023\",\n            \"education_status\": \"Pursuing\",\n            \"passing_year\": 2009,\n            \"cgpa\": \"9.84\",\n            \"address\": \"6908 Jeffrey Mill Apt. 135\\nSouth Kristen, AK 35873\",\n            \"city\": \"Colinberg\",\n            \"state\": \"Florida\",\n            \"pincode\": \"56351\",\n            \"created_at\": \"2024-05-09T19:12:59.197658Z\",\n            \"updated_at\": \"2024-05-09T19:12:59.198392Z\",\n            \"applicant\": {\n                \"id\": 221,\n                \"password\": \"pbkdf2_sha256$720000$eapx7MsXI4y7bVRsGbsODV$I52hcachOz+qHAtLAfrWnIfed+B3zXL5kw3TvXYPjsA=\",\n                \"last_login\": null,\n                \"is_superuser\": false,\n                \"username\": \"wgillespie\",\n                \"first_name\": \"\",\n                \"last_name\": \"\",\n                \"is_staff\": false,\n                \"is_active\": true,\n                \"date_joined\": \"2024-05-09T19:12:59.053364Z\",\n                \"email\": \"chernandez@example.net\",\n                \"name\": \"Guest\",\n                \"phone_number\": \"\",\n                \"groups\": [],\n                \"user_permissions\": []\n            },\n            \"skills\": []\n        },\n        {\n            \"id\": 15,\n            \"highest_qualification\": \"Four television voice.\",\n            \"stream\": \"wall\",\n            \"year\": \"2022\",\n            \"education_status\": \"Finished\",\n            \"passing_year\": 2006,\n            \"cgpa\": \"4.40\",\n            \"address\": \"179 Anna Ridge Suite 666\\nLake Dawn, KY 42257\",\n            \"city\": \"Lake Toddtown\",\n            \"state\": \"Maine\",\n            \"pincode\": \"15114\",\n            \"created_at\": \"2024-05-09T19:12:59.345850Z\",\n            \"updated_at\": \"2024-05-09T19:12:59.346588Z\",\n            \"applicant\": {\n                \"id\": 222,\n                \"password\": \"pbkdf2_sha256$720000$fjyWmjD5XYaGcLvMbxMhv5$LhhbHZCmBgueu6lQsrQVS/rpgB7k9bknT1lthDXEPhU=\",\n                \"last_login\": null,\n                \"is_superuser\": false,\n                \"username\": \"claireevans\",\n                \"first_name\": \"\",\n                \"last_name\": \"\",\n                \"is_staff\": false,\n                \"is_active\": true,\n                \"date_joined\": \"2024-05-09T19:12:59.202842Z\",\n                \"email\": \"stephenrodriguez@example.net\",\n                \"name\": \"Guest\",\n                \"phone_number\": \"\",\n                \"groups\": [],\n                \"user_permissions\": []\n            },\n            \"skills\": []\n        },\n        {\n            \"id\": 16,\n            \"highest_qualification\": \"Add two politics discover.\",\n            \"stream\": \"product\",\n            \"year\": \"2022\",\n            \"education_status\": \"Finished\",\n            \"passing_year\": 2007,\n            \"cgpa\": \"9.46\",\n            \"address\": \"7536 George Views\\nJessemouth, MA 22481\",\n            \"city\": \"Davisville\",\n            \"state\": \"Nevada\",\n            \"pincode\": \"03006\",\n            \"created_at\": \"2024-05-09T19:12:59.494255Z\",\n            \"updated_at\": \"2024-05-09T19:12:59.494954Z\",\n            \"applicant\": {\n                \"id\": 223,\n                \"password\": \"pbkdf2_sha256$720000$N3oAeI8z0D6fn0hMJ6mtTo$teMz8JEMZMlWuI3XGj2SFQ1OJReiGUpFSkgo039farU=\",\n                \"last_login\": null,\n                \"is_superuser\": false,\n                \"username\": \"jacksonrebecca\",\n                \"first_name\": \"\",\n                \"last_name\": \"\",\n                \"is_staff\": false,\n                \"is_active\": true,\n                \"date_joined\": \"2024-05-09T19:12:59.351406Z\",\n                \"email\": \"richard52@example.net\",\n                \"name\": \"Guest\",\n                \"phone_number\": \"\",\n                \"groups\": [],\n                \"user_permissions\": []\n            },\n            \"skills\": []\n        },\n        {\n            \"id\": 17,\n            \"highest_qualification\": \"Walk learn few.\",\n            \"stream\": \"test\",\n            \"year\": \"2022\",\n            \"education_status\": \"Finished\",\n            \"passing_year\": 2019,\n            \"cgpa\": \"9.34\",\n            \"address\": \"792 Courtney Harbor\\nJeremyside, AS 62880\",\n            \"city\": \"Lake Anne\",\n            \"state\": \"New Hampshire\",\n            \"pincode\": \"54964\",\n            \"created_at\": \"2024-05-09T19:12:59.644431Z\",\n            \"updated_at\": \"2024-05-09T19:12:59.645121Z\",\n            \"applicant\": {\n                \"id\": 224,\n                \"password\": \"pbkdf2_sha256$720000$4QAWpbmHSZPjd9b6qRXAko$QABMoYNUNo2IOW3S1NJeCzrPBiejFjx49Ky3+k6kc28=\",\n                \"last_login\": null,\n                \"is_superuser\": false,\n                \"username\": \"johnsonjames\",\n                \"first_name\": \"\",\n                \"last_name\": \"\",\n                \"is_staff\": false,\n                \"is_active\": true,\n                \"date_joined\": \"2024-05-09T19:12:59.499802Z\",\n                \"email\": \"katie35@example.org\",\n                \"name\": \"Guest\",\n                \"phone_number\": \"\",\n                \"groups\": [],\n                \"user_permissions\": []\n            },\n            \"skills\": []\n        },\n        {\n            \"id\": 18,\n            \"highest_qualification\": \"Church power agree.\",\n            \"stream\": \"treatment\",\n            \"year\": \"2022\",\n            \"education_status\": \"Pursuing\",\n            \"passing_year\": 2016,\n            \"cgpa\": \"5.71\",\n            \"address\": \"53056 Kelly Dale Apt. 265\\nLake Dennismouth, GU 98098\",\n            \"city\": \"West William\",\n            \"state\": \"Iowa\",\n            \"pincode\": \"11004\",\n            \"created_at\": \"2024-05-09T19:12:59.794514Z\",\n            \"updated_at\": \"2024-05-09T19:12:59.795249Z\",\n            \"applicant\": {\n                \"id\": 225,\n                \"password\": \"pbkdf2_sha256$720000$1zZtLqZ66dWt155Aa7wnmy$WcuJNV3Ka5AXz1EoShtSEcdVFlBnrFe/Ad1GufKNDSQ=\",\n                \"last_login\": null,\n                \"is_superuser\": false,\n                \"username\": \"gklein\",\n                \"first_name\": \"\",\n                \"last_name\": \"\",\n                \"is_staff\": false,\n                \"is_active\": true,\n                \"date_joined\": \"2024-05-09T19:12:59.649831Z\",\n                \"email\": \"cindy06@example.com\",\n                \"name\": \"Guest\",\n                \"phone_number\": \"\",\n                \"groups\": [],\n                \"user_permissions\": []\n            },\n            \"skills\": []\n        },\n        {\n            \"id\": 19,\n            \"highest_qualification\": \"Traditional.\",\n            \"stream\": \"case\",\n            \"year\": \"2022\",\n            \"education_status\": \"Pursuing\",\n            \"passing_year\": 2024,\n            \"cgpa\": \"5.44\",\n            \"address\": \"753 Salas Street\\nPort Perrybury, OK 46743\",\n            \"city\": \"North Williambury\",\n            \"state\": \"Idaho\",\n            \"pincode\": \"53934\",\n            \"created_at\": \"2024-05-09T19:12:59.946929Z\",\n            \"updated_at\": \"2024-05-09T19:12:59.947670Z\",\n            \"applicant\": {\n                \"id\": 226,\n                \"password\": \"pbkdf2_sha256$720000$GmTT54z2zBVAzkZWgRESyb$XrJWPFkLVtfQn7PlAX4dfiC7T+4lrPXybsXpscibsMo=\",\n                \"last_login\": null,\n                \"is_superuser\": false,\n                \"username\": \"lyonsstacy\",\n                \"first_name\": \"\",\n                \"last_name\": \"\",\n                \"is_staff\": false,\n                \"is_active\": true,\n                \"date_joined\": \"2024-05-09T19:12:59.799990Z\",\n                \"email\": \"fmccann@example.com\",\n                \"name\": \"Guest\",\n                \"phone_number\": \"\",\n                \"groups\": [],\n                \"user_permissions\": []\n            },\n            \"skills\": []\n        },\n        {\n            \"id\": 20,\n            \"highest_qualification\": \"Life report plan.\",\n            \"stream\": \"stay\",\n            \"year\": \"2021\",\n            \"education_status\": \"Pursuing\",\n            \"passing_year\": 2019,\n            \"cgpa\": \"1.21\",\n            \"address\": \"70853 Stephen Radial Suite 391\\nSouth Kevinshire, CT 56421\",\n            \"city\": \"Joelborough\",\n            \"state\": \"Vermont\",\n            \"pincode\": \"58954\",\n            \"created_at\": \"2024-05-09T19:13:00.096468Z\",\n            \"updated_at\": \"2024-05-09T19:13:00.097201Z\",\n            \"applicant\": {\n                \"id\": 227,\n                \"password\": \"pbkdf2_sha256$720000$uwX2XzleLlIiIX2tRkXhTj$krOuYv7vmUwH9lER1FM3+gr5+oa2PBRmRV2JMUwtNNI=\",\n                \"last_login\": null,\n                \"is_superuser\": false,\n                \"username\": \"sally94\",\n                \"first_name\": \"\",\n                \"last_name\": \"\",\n                \"is_staff\": false,\n                \"is_active\": true,\n                \"date_joined\": \"2024-05-09T19:12:59.952224Z\",\n                \"email\": \"jchurch@example.net\",\n                \"name\": \"Guest\",\n                \"phone_number\": \"\",\n                \"groups\": [],\n                \"user_permissions\": []\n            },\n            \"skills\": []\n        },\n        {\n            \"id\": 21,\n            \"highest_qualification\": \"New analysis.\",\n            \"stream\": \"order\",\n            \"year\": \"2022\",\n            \"education_status\": \"Pursuing\",\n            \"passing_year\": 2020,\n            \"cgpa\": \"7.11\",\n            \"address\": \"87380 Richard Island Suite 528\\nPort Jason, PW 81201\",\n            \"city\": \"New Catherinechester\",\n            \"state\": \"Hawaii\",\n            \"pincode\": \"16666\",\n            \"created_at\": \"2024-05-09T19:13:00.246032Z\",\n            \"updated_at\": \"2024-05-09T19:13:00.246766Z\",\n            \"applicant\": {\n                \"id\": 228,\n                \"password\": \"pbkdf2_sha256$720000$UWCR6n6GWlpFBimUPTccoM$7MYBdg78QDis2L3llJ2ZEnua9IYW2xNbIEqF37Dbt70=\",\n                \"last_login\": null,\n                \"is_superuser\": false,\n                \"username\": \"jenkinspatrick\",\n                \"first_name\": \"\",\n                \"last_name\": \"\",\n                \"is_staff\": false,\n                \"is_active\": true,\n                \"date_joined\": \"2024-05-09T19:13:00.101625Z\",\n                \"email\": \"nicole55@example.com\",\n                \"name\": \"Guest\",\n                \"phone_number\": \"\",\n                \"groups\": [],\n                \"user_permissions\": []\n            },\n            \"skills\": []\n        },\n        {\n            \"id\": 22,\n            \"highest_qualification\": \"Instead defense ok.\",\n            \"stream\": \"at\",\n            \"year\": \"2023\",\n            \"education_status\": \"Finished\",\n            \"passing_year\": 2017,\n            \"cgpa\": \"7.23\",\n            \"address\": \"64479 Diana Lodge Apt. 685\\nNew Rachelfurt, KS 91814\",\n            \"city\": \"Morrismouth\",\n            \"state\": \"Georgia\",\n            \"pincode\": \"84379\",\n            \"created_at\": \"2024-05-09T19:16:54.280774Z\",\n            \"updated_at\": \"2024-05-09T19:16:54.282217Z\",\n            \"applicant\": {\n                \"id\": 230,\n                \"password\": \"pbkdf2_sha256$720000$gF3q2eGFwK7rhzAqWbgPWt$vyXKxJUhicsKZno3AhorpQNNHk/YrV6FmeEqRRXehoQ=\",\n                \"last_login\": null,\n                \"is_superuser\": false,\n                \"username\": \"ffuller\",\n                \"first_name\": \"\",\n                \"last_name\": \"\",\n                \"is_staff\": false,\n                \"is_active\": true,\n                \"date_joined\": \"2024-05-09T19:16:54.136554Z\",\n                \"email\": \"bherrera@example.com\",\n                \"name\": \"Gina Mccoy\",\n                \"phone_number\": \"\",\n                \"groups\": [],\n                \"user_permissions\": []\n            },\n            \"skills\": []\n        },\n        {\n            \"id\": 23,\n            \"highest_qualification\": \"Amount most happy.\",\n            \"stream\": \"leg\",\n            \"year\": \"2021\",\n            \"education_status\": \"Finished\",\n            \"passing_year\": 2013,\n            \"cgpa\": \"3.27\",\n            \"address\": \"629 Rose Pines Apt. 389\\nGaryfurt, MT 38942\",\n            \"city\": \"Michaelville\",\n            \"state\": \"Indiana\",\n            \"pincode\": \"66032\",\n            \"created_at\": \"2024-05-09T19:16:54.535670Z\",\n            \"updated_at\": \"2024-05-09T19:16:54.536573Z\",\n            \"applicant\": {\n                \"id\": 231,\n                \"password\": \"pbkdf2_sha256$720000$5nU5FcHkGxB2aoeOfdA7Oz$PRmtrrehVY7mK9HN9SUKvyLConGY9MRaigaLss+OUIo=\",\n                \"last_login\": null,\n                \"is_superuser\": false,\n                \"username\": \"amy71\",\n                \"first_name\": \"\",\n                \"last_name\": \"\",\n                \"is_staff\": false,\n                \"is_active\": true,\n                \"date_joined\": \"2024-05-09T19:16:54.391275Z\",\n                \"email\": \"ashleyfranklin@example.com\",\n                \"name\": \"Wendy Butler\",\n                \"phone_number\": \"\",\n                \"groups\": [],\n                \"user_permissions\": []\n            },\n            \"skills\": []\n        },\n        {\n            \"id\": 24,\n            \"highest_qualification\": \"Great different policy.\",\n            \"stream\": \"such\",\n            \"year\": \"2021\",\n            \"education_status\": \"Pursuing\",\n            \"passing_year\": 2002,\n            \"cgpa\": \"1.57\",\n            \"address\": \"47531 Melissa Points Suite 143\\nDebrabury, AL 04564\",\n            \"city\": \"Aprilton\",\n            \"state\": \"Georgia\",\n            \"pincode\": \"63425\",\n            \"created_at\": \"2024-05-09T19:16:54.689279Z\",\n            \"updated_at\": \"2024-05-09T19:16:54.690235Z\",\n            \"applicant\": {\n                \"id\": 232,\n                \"password\": \"pbkdf2_sha256$720000$5ZVOGM92lHv70KZAKT9ZFZ$hEG0k+zQXHGlye51K1g93QTZIDyhmUsiIjRdrYg0zC8=\",\n                \"last_login\": null,\n                \"is_superuser\": false,\n                \"username\": \"christopher74\",\n                \"first_name\": \"\",\n                \"last_name\": \"\",\n                \"is_staff\": false,\n                \"is_active\": true,\n                \"date_joined\": \"2024-05-09T19:16:54.544588Z\",\n                \"email\": \"johnsonkyle@example.net\",\n                \"name\": \"Taylor Mahoney\",\n                \"phone_number\": \"\",\n                \"groups\": [],\n                \"user_permissions\": []\n            },\n            \"skills\": []\n        },\n        {\n            \"id\": 25,\n            \"highest_qualification\": \"For.\",\n            \"stream\": \"clearly\",\n            \"year\": \"2021\",\n            \"education_status\": \"Pursuing\",\n            \"passing_year\": 2018,\n            \"cgpa\": \"5.95\",\n            \"address\": \"765 Alyssa Extension\\nSloanmouth, TX 97206\",\n            \"city\": \"Lake Audrey\",\n            \"state\": \"Oklahoma\",\n            \"pincode\": \"06678\",\n            \"created_at\": \"2024-05-09T19:16:54.840220Z\",\n            \"updated_at\": \"2024-05-09T19:16:54.841086Z\",\n            \"applicant\": {\n                \"id\": 233,\n                \"password\": \"pbkdf2_sha256$720000$e5kR5eWwP73jTEono6tL4y$szOqZSJs+SNm7eukNVR7PL8Y4TZ5v5cIKl6wIPAfT80=\",\n                \"last_login\": null,\n                \"is_superuser\": false,\n                \"username\": \"angelawhite\",\n                \"first_name\": \"\",\n                \"last_name\": \"\",\n                \"is_staff\": false,\n                \"is_active\": true,\n                \"date_joined\": \"2024-05-09T19:16:54.695552Z\",\n                \"email\": \"chavezkyle@example.com\",\n                \"name\": \"Tony Ortiz\",\n                \"phone_number\": \"\",\n                \"groups\": [],\n                \"user_permissions\": []\n            },\n            \"skills\": []\n        },\n        {\n            \"id\": 26,\n            \"highest_qualification\": \"Really crime civil.\",\n            \"stream\": \"number\",\n            \"year\": \"2021\",\n            \"education_status\": \"Pursuing\",\n            \"passing_year\": 2022,\n            \"cgpa\": \"5.71\",\n            \"address\": \"713 Nathaniel Extensions Suite 916\\nSabrinaton, VT 17525\",\n            \"city\": \"Williamtown\",\n            \"state\": \"Michigan\",\n            \"pincode\": \"17455\",\n            \"created_at\": \"2024-05-09T19:16:54.989520Z\",\n            \"updated_at\": \"2024-05-09T19:16:54.990400Z\",\n            \"applicant\": {\n                \"id\": 234,\n                \"password\": \"pbkdf2_sha256$720000$0L6LUSltuVW5niuIFuTqbe$TfF84s/NV/duxlUMSckb5GvJkNEemaBDiKATEPYL+Ys=\",\n                \"last_login\": null,\n                \"is_superuser\": false,\n                \"username\": \"rfriedman\",\n                \"first_name\": \"\",\n                \"last_name\": \"\",\n                \"is_staff\": false,\n                \"is_active\": true,\n                \"date_joined\": \"2024-05-09T19:16:54.845949Z\",\n                \"email\": \"jamesthomas@example.org\",\n                \"name\": \"Jesse Harris\",\n                \"phone_number\": \"\",\n                \"groups\": [],\n                \"user_permissions\": []\n            },\n            \"skills\": []\n        },\n        {\n            \"id\": 27,\n            \"highest_qualification\": \"Wind consider.\",\n            \"stream\": \"poor\",\n            \"year\": \"2021\",\n            \"education_status\": \"Pursuing\",\n            \"passing_year\": 2020,\n            \"cgpa\": \"2.15\",\n            \"address\": \"PSC 4515, Box 3974\\nAPO AA 28899\",\n            \"city\": \"Mcguiremouth\",\n            \"state\": \"California\",\n            \"pincode\": \"06500\",\n            \"created_at\": \"2024-05-09T19:16:55.138637Z\",\n            \"updated_at\": \"2024-05-09T19:16:55.139518Z\",\n            \"applicant\": {\n                \"id\": 235,\n                \"password\": \"pbkdf2_sha256$720000$Ovd6lhUTPvhjN9if6kmUUl$NYOr3mwps0XAyNW0ItWAprnWWUMih2kORu6wJYi7hOg=\",\n                \"last_login\": null,\n                \"is_superuser\": false,\n                \"username\": \"bwilkinson\",\n                \"first_name\": \"\",\n                \"last_name\": \"\",\n                \"is_staff\": false,\n                \"is_active\": true,\n                \"date_joined\": \"2024-05-09T19:16:54.994448Z\",\n                \"email\": \"cheryl72@example.org\",\n                \"name\": \"Jacob Lewis\",\n                \"phone_number\": \"\",\n                \"groups\": [],\n                \"user_permissions\": []\n            },\n            \"skills\": []\n        },\n        {\n            \"id\": 28,\n            \"highest_qualification\": \"Suggest finish whose.\",\n            \"stream\": \"several\",\n            \"year\": \"2022\",\n            \"education_status\": \"Pursuing\",\n            \"passing_year\": 2023,\n            \"cgpa\": \"1.41\",\n            \"address\": \"73509 Thomas Plain Suite 248\\nNew Abigailside, TN 96011\",\n            \"city\": \"Lake Thomas\",\n            \"state\": \"South Carolina\",\n            \"pincode\": \"53924\",\n            \"created_at\": \"2024-05-09T19:16:55.287509Z\",\n            \"updated_at\": \"2024-05-09T19:16:55.288210Z\",\n            \"applicant\": {\n                \"id\": 236,\n                \"password\": \"pbkdf2_sha256$720000$MEpmssJyKLNEQomLPJy35S$6cl0MsycOLpt4vt5hY9qbk69Vlf2BIalBwcBv67NxZ8=\",\n                \"last_login\": null,\n                \"is_superuser\": false,\n                \"username\": \"genekennedy\",\n                \"first_name\": \"\",\n                \"last_name\": \"\",\n                \"is_staff\": false,\n                \"is_active\": true,\n                \"date_joined\": \"2024-05-09T19:16:55.144771Z\",\n                \"email\": \"twilliams@example.net\",\n                \"name\": \"Justin Sims\",\n                \"phone_number\": \"\",\n                \"groups\": [],\n                \"user_permissions\": []\n            },\n            \"skills\": []\n        },\n        {\n            \"id\": 29,\n            \"highest_qualification\": \"Hit eye prevent.\",\n            \"stream\": \"green\",\n            \"year\": \"2022\",\n            \"education_status\": \"Pursuing\",\n            \"passing_year\": 2013,\n            \"cgpa\": \"3.01\",\n            \"address\": \"52476 Sarah Summit\\nLake Rita, PA 16119\",\n            \"city\": \"Jessicachester\",\n            \"state\": \"Minnesota\",\n            \"pincode\": \"74451\",\n            \"created_at\": \"2024-05-09T19:16:55.438557Z\",\n            \"updated_at\": \"2024-05-09T19:16:55.439304Z\",\n            \"applicant\": {\n                \"id\": 237,\n                \"password\": \"pbkdf2_sha256$720000$MJBlTpkx72rVNz6X3R3RVt$pyWRLs/R46IGs6/ZbWXhFfszcTo8ROlR7b2kGf+VKS8=\",\n                \"last_login\": null,\n                \"is_superuser\": false,\n                \"username\": \"bradhunt\",\n                \"first_name\": \"\",\n                \"last_name\": \"\",\n                \"is_staff\": false,\n                \"is_active\": true,\n                \"date_joined\": \"2024-05-09T19:16:55.293126Z\",\n                \"email\": \"acostacory@example.net\",\n                \"name\": \"Kevin Barrera\",\n                \"phone_number\": \"\",\n                \"groups\": [],\n                \"user_permissions\": []\n            },\n            \"skills\": []\n        },\n        {\n            \"id\": 30,\n            \"highest_qualification\": \"Tree decide national western.\",\n            \"stream\": \"system\",\n            \"year\": \"2021\",\n            \"education_status\": \"Finished\",\n            \"passing_year\": 2022,\n            \"cgpa\": \"7.68\",\n            \"address\": \"736 Jessica Village\\nLake Davidport, AK 77405\",\n            \"city\": \"New Brandon\",\n            \"state\": \"Maine\",\n            \"pincode\": \"45690\",\n            \"created_at\": \"2024-05-09T19:16:55.586671Z\",\n            \"updated_at\": \"2024-05-09T19:16:55.587535Z\",\n            \"applicant\": {\n                \"id\": 238,\n                \"password\": \"pbkdf2_sha256$720000$sf26lrvKgIZBPha8G6SwTq$51U0cUFbJHKOxqJUEyRC4RSicFvkLFE54R9jZXVxduw=\",\n                \"last_login\": null,\n                \"is_superuser\": false,\n                \"username\": \"yfaulkner\",\n                \"first_name\": \"\",\n                \"last_name\": \"\",\n                \"is_staff\": false,\n                \"is_active\": true,\n                \"date_joined\": \"2024-05-09T19:16:55.444038Z\",\n                \"email\": \"fullerwendy@example.com\",\n                \"name\": \"Herbert Vasquez\",\n                \"phone_number\": \"\",\n                \"groups\": [],\n                \"user_permissions\": []\n            },\n            \"skills\": []\n        },\n        {\n            \"id\": 31,\n            \"highest_qualification\": \"Who push.\",\n            \"stream\": \"attack\",\n            \"year\": \"2023\",\n            \"education_status\": \"Pursuing\",\n            \"passing_year\": 2015,\n            \"cgpa\": \"9.18\",\n            \"address\": \"3981 Beltran Green Suite 718\\nLeestad, RI 25759\",\n            \"city\": \"Port Julie\",\n            \"state\": \"Arkansas\",\n            \"pincode\": \"86344\",\n            \"created_at\": \"2024-05-09T19:16:55.736567Z\",\n            \"updated_at\": \"2024-05-09T19:16:55.737397Z\",\n            \"applicant\": {\n                \"id\": 239,\n                \"password\": \"pbkdf2_sha256$720000$GJvvu2idxPOCsRPU7pR4Ar$+MDKH3tpuM+2cYCYWUBP0N8AqNrV5aQh4DZG1ObA0xs=\",\n                \"last_login\": null,\n                \"is_superuser\": false,\n                \"username\": \"angelalee\",\n                \"first_name\": \"\",\n                \"last_name\": \"\",\n                \"is_staff\": false,\n                \"is_active\": true,\n                \"date_joined\": \"2024-05-09T19:16:55.593002Z\",\n                \"email\": \"melissabauer@example.net\",\n                \"name\": \"Patricia Logan\",\n                \"phone_number\": \"\",\n                \"groups\": [],\n                \"user_permissions\": []\n            },\n            \"skills\": []\n        },\n        {\n            \"id\": 32,\n            \"highest_qualification\": \"Compare message.\",\n            \"stream\": \"really\",\n            \"year\": \"2023\",\n            \"education_status\": \"Pursuing\",\n            \"passing_year\": 2000,\n            \"cgpa\": \"2.89\",\n            \"address\": \"PSC 1862, Box 8141\\nAPO AA 38445\",\n            \"city\": \"Mariafort\",\n            \"state\": \"Oregon\",\n            \"pincode\": \"49008\",\n            \"created_at\": \"2024-05-09T19:16:55.884818Z\",\n            \"updated_at\": \"2024-05-09T19:16:55.885578Z\",\n            \"applicant\": {\n                \"id\": 240,\n                \"password\": \"pbkdf2_sha256$720000$07vX6k1m60iEsItaqDXX2q$iks9t8umORNXL8kZdL/VkO32M4Hm7Ir34gthH1NFeo0=\",\n                \"last_login\": null,\n                \"is_superuser\": false,\n                \"username\": \"tsmith\",\n                \"first_name\": \"\",\n                \"last_name\": \"\",\n                \"is_staff\": false,\n                \"is_active\": true,\n                \"date_joined\": \"2024-05-09T19:16:55.741845Z\",\n                \"email\": \"hadams@example.org\",\n                \"name\": \"Daniel Zimmerman\",\n                \"phone_number\": \"\",\n                \"groups\": [],\n                \"user_permissions\": []\n            },\n            \"skills\": []\n        }\n    ],\n    \"total_count\": 32\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Applicants profile",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"address\": \"4346 Nicolanhi Lakes Apt. 790\\nWest Ian, MD 68312\",\n    \"city\": \"New Ryanchester\",\n    \"state\": \"Kentucky\",\n    \"pincode\": \"86020\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/applicantprofile/?applicantId=208",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"applicantprofile",
+								""
+							],
+							"query": [
+								{
+									"key": "applicantId",
+									"value": "208"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update Applicants profile",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{auth_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"address\": \"4346 Nicolanhi Lakes Apt. 790\\nWest Ian, MD 68312\",\n    \"city\": \"New Ryanchester\",\n    \"state\": \"Kentucky\",\n    \"pincode\": \"86020\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/applicantprofile/?applicantId=208",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"applicantprofile",
+										""
+									],
+									"query": [
+										{
+											"key": "applicantId",
+											"value": "208"
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 22 May 2024 02:15:49 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.12.1"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, PUT, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "389"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"id\": 1,\n        \"highest_qualification\": \"Later suffer.\",\n        \"stream\": \"from\",\n        \"year\": \"2022\",\n        \"education_status\": \"Pursuing\",\n        \"passing_year\": 2023,\n        \"cgpa\": \"9.92\",\n        \"address\": \"4346 Nicolanhi Lakes Apt. 790\\nWest Ian, MD 68312\",\n        \"city\": \"New Ryanchester\",\n        \"state\": \"Kentucky\",\n        \"pincode\": \"86020\",\n        \"created_at\": \"2024-05-09T19:12:57.135916Z\",\n        \"updated_at\": \"2024-05-22T02:15:49.113988Z\",\n        \"applicant\": 208,\n        \"skills\": []\n    }\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "auth_token",
+			"value": "Token 3a910f4505c22940e3b71861b9387f13fc7a6439",
+			"type": "string"
+		}
+	]
+}
