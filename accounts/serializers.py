@@ -22,3 +22,9 @@ class UserLoginSerializer(serializers.ModelSerializer):
     @staticmethod
     def get_team(self):
         return self.team
+
+
+class UserGetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        exclude = ['password']
