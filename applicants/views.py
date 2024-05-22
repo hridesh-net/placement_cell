@@ -60,10 +60,11 @@ class ApplicantView(APIView):
 
 
 class ApplicantProfileView(APIView):
-    uthentication_classes = (TokenAuthentication,)
+    authentication_classes = (TokenAuthentication,)
     permission_classes = [IsAuthenticated]
 
     serializer_class = ApplicantProfileCreateSeializer
+    get_serializer_class = ApplicantProfileGetSerializer
     querysets = ApplicantProfile.objects.all()
 
     def post(self, request):
@@ -92,11 +93,32 @@ class ApplicantProfileView(APIView):
                 {"data": applicants.data, "total_count": data_count},
                 status=status.HTTP_200_OK,
             )
-        applicants = self.serializer_class(self.querysets, many=True)
+        applicants = self.get_serializer_class(self.querysets, many=True)
         return Response(
             {"data": applicants.data, "total_count": data_count},
             status=status.HTTP_200_OK,
         )
+
+    def put(self, request):
+        data = request.data
+        id = request.query_params.get("applicantId")
+        applicant = ApplicantProfile.objects.get(applicant=id)
+
+        for key, value in data.items():
+            if hasattr(applicant, key):
+                setattr(applicant, key, value)
+            else:
+                return Response(
+                    {"message": f"Invalid field: {key}"},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
+        try:
+            applicant.save()
+            serial_data = self.get_serializer_class(applicant)
+            return Response({"data": serial_data.data}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"message": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ApplicationView(APIView):
