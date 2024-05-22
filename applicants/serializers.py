@@ -1,16 +1,17 @@
 from rest_framework import serializers
 
 from .models import Applicant, ApplicantProfile, Application, Skill
+from accounts.serializers import UserGetSerializer
 
 
 class SkillSerializer(serializers.ModelSerializer):
     class Meta:
         model = Skill
-        fields = "__all__" # Include relevant skill fields
+        fields = "__all__"  # Include relevant skill fields
 
     def create(self, validated_data):
         # Check if skill already exists
-        skill_name = validated_data['name']
+        skill_name = validated_data["name"]
         existing_skill = Skill.objects.filter(name=skill_name).first()
         if not existing_skill:
             return Skill.objects.create(**validated_data)
@@ -41,13 +42,15 @@ class ApplicantProfileCreateSeializer(serializers.ModelSerializer):
     class Meta:
         model = ApplicantProfile
         fields = "__all__"
-    
+
     def create(self, validated_data):
         # ... rest of your create method logic ...
 
         # Handle skills data using the custom ManyToManyField serializer
-        skills_data = validated_data.pop('skills')
-        skills = SkillManytoManySerializer(data=skills_data, many=True).create(skills_data)
+        skills_data = validated_data.pop("skills")
+        skills = SkillManytoManySerializer(data=skills_data, many=True).create(
+            skills_data
+        )
         profile = ApplicantProfile.objects.create(**validated_data)
         profile.skills.set(skills)  # Set the skills for the profile
 
@@ -55,6 +58,8 @@ class ApplicantProfileCreateSeializer(serializers.ModelSerializer):
 
 
 class ApplicantProfileGetSerializer(serializers.ModelSerializer):
+    applicant = UserGetSerializer(read_only=True)
+
     class Meta:
         model = ApplicantProfile
         fields = "__all__"
