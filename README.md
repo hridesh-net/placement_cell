@@ -95,6 +95,10 @@ python manage.py generate_fake_data 100
 
 - [Dhruv Soni](https://github.com/Dhruv-net)
 - [Hridesh Sharma](https://github.com/hridesh-net)
+
+
+<span style='background-color: #BA9602;'>Python Expert</span>
+
 <span style='background-color: #FB5A34;'>Python Expert</span># Placement Cell Service for Skill Brew Application
 This Placement Cell Service is designed as a secondary feature for the Skill Brew application, which is built on Django and utilizes PostgreSQL as the database management system. The Placement Cell Service aims to facilitate the process of job placement for users of the Skill Brew platform.
 
