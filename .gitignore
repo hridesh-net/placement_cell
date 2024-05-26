@@ -5,3 +5,4 @@ pcenv/
 __pycache__/
 pc-ui
 *.pdf
+placement_cell_oauth_creds.json
