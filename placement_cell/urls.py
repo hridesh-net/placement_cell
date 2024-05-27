@@ -18,7 +18,10 @@ from django.contrib import admin
 from django.urls import path
 from django.urls import include
 
+from .views import GoogleAuthCallbackView
+
 urlpatterns = [
+    path("admin/google/callback", GoogleAuthCallbackView.as_view(), name="google_auth_callback"),
     path("admin/", admin.site.urls),
     path("api/v1/", include("api.v1.urls")),    
 ]
