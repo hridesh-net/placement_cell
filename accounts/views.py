@@ -1,18 +1,112 @@
+import requests
+import urllib.parse
+
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 
+from django.conf import settings
 from django.utils import timezone
 from django.db import IntegrityError
-from django.contrib.auth import authenticate
 from django.contrib.auth.hashers import check_password
+from django.http import JsonResponse, HttpResponseRedirect
+from django.contrib.auth import authenticate, get_user_model
 
-from .models import CustomUser
+from utils.google_auth import get_google_user_info
 from .serializers import UserLoginSerializer, UserSignupSerializer
+from .models import CustomUser, CustomGoogleTokenComposite as CGToken
 
 # Create your views here.
 
+
+User = get_user_model()
+
+
+def google_callback(request, *args, **kwargs):
+    # print(request.headers)
+    print(request)
+    print(request.GET.get("code"))
+    token_url = "https://oauth2.googleapis.com/token"
+    code = request.GET.get("code")
+    client_id = (
+        "881799223402-p01t26k8k8bksb5jlqlil2jp61cfhlt0.apps.googleusercontent.com"
+    )
+    client_secret = settings.GOOGLE_CLIENT_SECRET
+    redirect_uri = "http://localhost:8000/admin/google/callback"
+    data = {
+        "code": code,
+        "client_id": client_id,
+        "client_secret": client_secret,
+        "redirect_uri": redirect_uri,
+        "grant_type": "authorization_code",
+    }
+    response = requests.post(token_url, data=data)
+
+    token_response_data = response.json()
+    print(token_response_data)
+
+    if "access_token" in token_response_data:
+        access_token = token_response_data["access_token"]
+        user_info = get_google_user_info(access_token)
+
+        email = user_info.get("email")
+        if not email:
+            return JsonResponse(
+                {"error": "Failed to retrieve email from Google"}, status=400
+            )
+
+        user, created = User.objects.get_or_create(email=email)
+        if created:
+            user.username = user_info.get("email")
+            user.set_unusable_password()
+            user.name = user_info.get("name")
+            user.save()
+
+        token, _ = Token.objects.get_or_create(user=user)
+
+        if token:
+            cg_token, _ = CGToken.objects.get_or_create(user=user, token=token)
+            if cg_token:
+                cg_token.access_token = access_token
+                try:
+                    cg_token.refresh_token = token_response_data["refresh_token"]
+                except:
+                    pass
+
+                cg_token.token = token
+                cg_token.save()
+        
+            user = User.objects.get(email=email)
+            serial_user = UserLoginSerializer(user)
+            response_data = serial_user.data
+            return JsonResponse(response_data, status=status.HTTP_200_OK)
+
+        return JsonResponse({"error": "Failed to fetch user"}, status=400)
+    else:
+        return JsonResponse({"error": "Failed to retrieve access token"}, status=400)
+
+
+class GoogleLogin(APIView):
+    def get(self, request, *args, **kwargs):
+        google_auth_endpoint = "https://accounts.google.com/o/oauth2/auth"
+        redirect_uri = "http://localhost:8000/admin/google/callback"
+        client_id = settings.GOOGLE_CLIENT_ID
+        SCOPES = "https://www.googleapis.com/auth/drive.metadata.readonly https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email"
+        # state = "random_string_for_csrf_protection"
+
+        params = {
+            "response_type": "code",
+            "client_id": client_id,
+            "redirect_uri": redirect_uri,
+            "scope": SCOPES,
+            # "state": state,
+            "access_type": "offline",
+            "prompt": "consent",
+        }
+        
+        url = f"{google_auth_endpoint}?{urllib.parse.urlencode(params)}"
+        return HttpResponseRedirect(url)
 
 class LoginAPIView(APIView):
     def post(self, request):
