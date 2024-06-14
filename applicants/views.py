@@ -102,11 +102,11 @@ class ApplicantProfileView(APIView):
     def put(self, request):
         data = request.data
         id = request.query_params.get("applicantId")
-        applicant = ApplicantProfile.objects.get(applicant=id)
+        applicant_profile = ApplicantProfile.objects.get(applicant=id)
 
         for key, value in data.items():
-            if hasattr(applicant, key):
-                setattr(applicant, key, value)
+            if hasattr(applicant_profile, key):
+                setattr(applicant_profile, key, value)
             else:
                 return Response(
                     {"message": f"Invalid field: {key}"},
@@ -114,15 +114,15 @@ class ApplicantProfileView(APIView):
                 )
 
         try:
-            applicant.save()
-            serial_data = self.get_serializer_class(applicant)
+            applicant_profile.save()
+            serial_data = self.get_serializer_class(applicant_profile)
             return Response({"data": serial_data.data}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({"message": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ApplicationView(APIView):
-    uthentication_classes = (TokenAuthentication,)
+    authentication_classes = (TokenAuthentication,)
     permission_classes = [IsAuthenticated]
 
     serializer_class = ApplicationCreateSerializer
@@ -154,10 +154,10 @@ class ApplicationView(APIView):
     ########### application get api##############
     def get(self, request):
         data_count = self.querysets.count()
-        student = request.query_params.get("student", None)
+        applicant = request.query_params.get("applicant", None)
         applicant_profile = request.query_params.get("applicant_profile", None)
-        if student:
-            querysets = self.querysets.filter(student=student)
+        if applicant:
+            querysets = self.querysets.filter(applicant=applicant)
             application = ApplicationCreateSerializer(querysets, many=True)
             return Response(
                 {"data": application.data, "total_count": data_count},
