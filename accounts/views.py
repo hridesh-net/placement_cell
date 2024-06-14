@@ -29,9 +29,7 @@ def google_callback(request, *args, **kwargs):
     print(request.GET.get("code"))
     token_url = "https://oauth2.googleapis.com/token"
     code = request.GET.get("code")
-    client_id = (
-        "881799223402-p01t26k8k8bksb5jlqlil2jp61cfhlt0.apps.googleusercontent.com"
-    )
+    client_id = settings.GOOGLE_CLIENT_ID
     client_secret = settings.GOOGLE_CLIENT_SECRET
     redirect_uri = "http://localhost:8000/admin/google/callback"
     data = {
