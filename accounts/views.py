@@ -13,6 +13,7 @@ from django.contrib.auth.hashers import check_password
 from django.http import JsonResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, get_user_model
 
+from utils.mail import signup_confirmation_email
 from utils.google_auth import get_google_user_info
 from .serializers import UserLoginSerializer, UserSignupSerializer
 from .models import CustomUser, CustomGoogleTokenComposite as CGToken
@@ -150,6 +151,7 @@ class SignupAPIView(APIView):
         if serializer.is_valid():
             try:
                 user = serializer.save()
+                signup_confirmation_email(user.username, user.email)
                 return Response(
                     {"message": "User created successfully"},
                     status=status.HTTP_201_CREATED,
