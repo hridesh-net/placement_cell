@@ -6,6 +6,7 @@ from rest_framework import status
 
 from .models import *
 from .serializers import *
+from utils.mail import organization_registration_email, job_posted_email
 
 # Create your views here.
 
@@ -41,7 +42,10 @@ class OrganisationView(APIView):
         data = request.data
         serial_data = self.serializer_class(data=data)
         if serial_data.is_valid():
-            serial_data.save()
+            instance=serial_data.save()
+            # organization registered mail
+            if instance.created_by:
+                organization_registration_email(instance.name, instance.created_by.email)
             return Response({"data": serial_data.data}, status=status.HTTP_201_CREATED)
 
         return Response({"message": "invalid data"}, status=status.HTTP_400_BAD_REQUEST)
@@ -55,7 +59,11 @@ class JobView(APIView):
         data = request.data
         serial_data = self.serializer_class(data=data)
         if serial_data.is_valid():
-            serial_data.save()
+            instance=serial_data.save()
+            #  job post mail
+            instance_data = JobGetSerializer(instance).data
+            if instance.company and instance.company.created_by:
+                job_posted_email(instance_data, instance.company.created_by.email)
             return Response({"data": serial_data.data}, status=status.HTTP_201_CREATED)
 
         return Response({"message": "invalid data"}, status=status.HTTP_400_BAD_REQUEST)
