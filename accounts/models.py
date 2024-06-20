@@ -7,8 +7,6 @@ from django.contrib.auth.models import AbstractUser
 from .managers import CustomUserManager
 
 # Create your models here.
-
-
 class CustomUser(AbstractUser):
     email = models.EmailField(_("Email Address"), unique=True)
     name = models.CharField(_("Full Name"), max_length=20, default="Guest")

@@ -7,8 +7,7 @@ from django.contrib.contenttypes.fields import GenericRelation
 from marketing.models import Job
 from attachments.models import Attachment
 from accounts.models import CustomUser
-from marketing.models import Organisation
-
+from marketing.models import Organization
 
 # Create your models here.
 
