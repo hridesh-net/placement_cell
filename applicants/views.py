@@ -7,7 +7,7 @@ from rest_framework.authentication import TokenAuthentication
 from .models import *
 from .serializers import *
 
-
+ 
 class ApplicantView(APIView):
     authentication_classes = (TokenAuthentication,)
     permission_classes = [IsAuthenticated]
@@ -41,6 +41,8 @@ class ApplicantView(APIView):
                 {"data": applicants.data, "total_count": data_count},
                 status=status.HTTP_200_OK,
             )
+
+        # aagr ye application ka manager h ya admin/ superuser h tb hi bass ye niche wala code chalega
         applicants = ApplicantCreatSerializer(self.querysets, many=True)
         return Response(
             {"data": applicants.data, "total_count": data_count},
@@ -76,24 +78,41 @@ class ApplicantProfileView(APIView):
 
         return Response({"message": "invalid data"}, status=status.HTTP_400_BAD_REQUEST)
 
+    # def get(self, request):
+    #     data_count = self.querysets.count()
+    #     params = request.query_params.dict()
+    #     if params.get("id"):
+    #         querysets = self.querysets.filter(id=params.get("id"))
+    #         applicants = self.serializer_class(querysets, many=True)
+    #         return Response(
+    #             {"data": applicants.data, "total_count": data_count},
+    #             status=status.HTTP_200_OK,
+    #         )
+    #     if params.get("name"):
+    #         querysets = self.querysets.filter(name__contains=params.get("name"))
+    #         applicants = self.serializer_class(querysets, many=True)
+    #         return Response(
+    #             {"data": applicants.data, "total_count": data_count},
+    #             status=status.HTTP_200_OK,
+    #         )
+    #     applicants = self.get_serializer_class(self.querysets, many=True)
+    #     return Response(
+    #         {"data": applicants.data, "total_count": data_count},
+    #         status=status.HTTP_200_OK,
+    #     )
+
+    ########## Changed this GET Method###########
     def get(self, request):
-        data_count = self.querysets.count()
         params = request.query_params.dict()
-        if params.get("id"):
-            querysets = self.querysets.filter(id=params.get("id"))
-            applicants = self.serializer_class(querysets, many=True)
-            return Response(
-                {"data": applicants.data, "total_count": data_count},
-                status=status.HTTP_200_OK,
-            )
-        if params.get("name"):
-            querysets = self.querysets.filter(name__contains=params.get("name"))
-            applicants = self.serializer_class(querysets, many=True)
-            return Response(
-                {"data": applicants.data, "total_count": data_count},
-                status=status.HTTP_200_OK,
-            )
-        applicants = self.get_serializer_class(self.querysets, many=True)
+        if 'id' in params:
+            querysets = self.querysets.filter(id=params['id'])
+        elif 'name' in params:
+            querysets = self.querysets.filter(applicant__name__icontains=params['name'])
+        else:
+            querysets = self.querysets
+
+        data_count = querysets.count()
+        applicants = self.get_serializer_class(querysets, many=True)
         return Response(
             {"data": applicants.data, "total_count": data_count},
             status=status.HTTP_200_OK,
@@ -132,7 +151,7 @@ class ApplicationView(APIView):
     def post(self, request):
         data = request.data
         dup_application = self.querysets.filter(
-            aplicant=data.get("applicant"),
+            applicant=data.get("applicant"),
             applicant_profile=data.get("applicant_profile"),
             job=data.get("job"),
         )

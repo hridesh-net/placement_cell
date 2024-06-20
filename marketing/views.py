@@ -80,27 +80,38 @@ class JobView(APIView):
             )
 
         if params.get("title"):
-            querysets = self.querysets.filter(title__icontains=params.get("name"))
+            querysets = self.querysets.filter(title__icontains=params.get("title"))
+            jobs = JobGetSerializer(querysets, many=True).data
+            return Response(
+                {"data": jobs, "total_count": data_count}, status=status.HTTP_200_OK
+            )
+        
+        ############# Changed this for company ############### 
+        if params.get("company"):
+            querysets = self.querysets.filter(company=params.get("company"))
             jobs = JobGetSerializer(querysets, many=True).data
             return Response(
                 {"data": jobs, "total_count": data_count}, status=status.HTTP_200_OK
             )
 
-        if params.get("organisation"):
-            querysets = self.querysets.filter(company=params.get("organisation"))
+        ############# Changed this for work location ############### 
+        if params.get("work_location"):
+            querysets = self.querysets.filter(work_location=params.get("work_location"))
             jobs = JobGetSerializer(querysets, many=True).data
             return Response(
                 {"data": jobs, "total_count": data_count}, status=status.HTTP_200_OK
             )
 
-        if params.get("location"):
-            querysets = self.querysets.filter(work_location=params.get("location"))
+        if 'location' in params:
+            querysets = self.querysets.filter(company__location__icontains=params['location'])
             jobs = JobGetSerializer(querysets, many=True).data
             return Response(
                 {"data": jobs, "total_count": data_count}, status=status.HTTP_200_OK
             )
+
 
         jobs = JobGetSerializer(self.querysets, many=True).data
         return Response(
             {"data": jobs, "total_count": data_count}, status=status.HTTP_200_OK
         )
+    

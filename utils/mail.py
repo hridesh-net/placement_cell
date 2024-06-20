@@ -45,7 +45,7 @@ def signup_confirmation_email(username, recipient_email):
 def send_email(subject, template_name, context, recipient_list):
     html_message = render_to_string(template_name, context)
     plain_message = strip_tags(html_message)
-    from_email = "riya.k.brudite@gmail.com"
+    from_email = settings.EMAIL_HOST_USER
 
     email = EmailMultiAlternatives(subject, plain_message, from_email, recipient_list)
     email.attach_alternative(html_message, "text/html")
