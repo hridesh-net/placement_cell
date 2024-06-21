@@ -11,6 +11,11 @@ from rest_framework import status, generics
 from rest_framework.response import Response
 from .models import Organisation, Job
 from .serializers import OrganisationCreateSerializer, OrganisationGetSerializer, JobCreateSerializer, JobGetSerializer
+from .models import *
+from .serializers import *
+from utils.mail import organization_registration_email, job_posted_email
+
+# Create your views here.
 
 class OrganisationView(generics.CreateAPIView):
     queryset = Organisation.objects.all()
@@ -110,6 +115,15 @@ class VerifyOTPView(APIView):
                 return Response({'message': 'Invalid OTP'}, status=status.HTTP_400_BAD_REQUEST)
         except Organisation.DoesNotExist:
             return Response({'message': 'Organization not found'}, status=status.HTTP_404_NOT_FOUND)
+        serial_data = self.serializer_class(data=data)
+        if serial_data.is_valid():
+            instance=serial_data.save()
+            # organization registered mail
+            if instance.created_by:
+                organization_registration_email(instance.name, instance.created_by.email)
+            return Response({"data": serial_data.data}, status=status.HTTP_201_CREATED)
+
+        return Response({"message": "invalid data"}, status=status.HTTP_400_BAD_REQUEST)
 
 class JobView(APIView):
     serializer_class = JobCreateSerializer
@@ -118,7 +132,11 @@ class JobView(APIView):
         data = request.data
         serial_data = self.serializer_class(data=data)
         if serial_data.is_valid():
-            serial_data.save()
+            instance=serial_data.save()
+            #  job post mail
+            instance_data = JobGetSerializer(instance).data
+            if instance.company and instance.company.created_by:
+                job_posted_email(instance_data, instance.company.created_by.email)
             return Response({"data": serial_data.data}, status=status.HTTP_201_CREATED)
     
         return Response({"message": "invalid data"}, status=status.HTTP_400_BAD_REQUEST)
@@ -136,6 +154,15 @@ class JobView(APIView):
     
         if params.get("title"):
             querysets = self.queryset.filter(title__icontains(params.get("title")))
+            querysets = self.querysets.filter(title__icontains=params.get("title"))
+            jobs = JobGetSerializer(querysets, many=True).data
+            return Response(
+                {"data": jobs, "total_count": data_count}, status=status.HTTP_200_OK
+            )
+        
+        ############# Changed this for company ############### 
+        if params.get("company"):
+            querysets = self.querysets.filter(company=params.get("company"))
             jobs = JobGetSerializer(querysets, many=True).data
             return Response(
                 {"data": jobs, "total_count": data_count}, status=status.HTTP_200_OK
@@ -143,6 +170,10 @@ class JobView(APIView):
     
         if params.get("organisation"):
             querysets = self.queryset.filter(company=params.get("organisation"))
+
+        ############# Changed this for work location ############### 
+        if params.get("work_location"):
+            querysets = self.querysets.filter(work_location=params.get("work_location"))
             jobs = JobGetSerializer(querysets, many=True).data
             return Response(
                 {"data": jobs, "total_count": data_count}, status=status.HTTP_200_OK
@@ -150,12 +181,18 @@ class JobView(APIView):
     
         if params.get("location"):
             querysets = self.queryset.filter(work_location=params.get("location"))
+
+        if 'location' in params:
+            querysets = self.querysets.filter(company__location__icontains=params['location'])
             jobs = JobGetSerializer(querysets, many=True).data
             return Response(
                 {"data": jobs, "total_count": data_count}, status=status.HTTP_200_OK
             )
 
         jobs = JobGetSerializer(self.queryset, many=True).data
+
+        jobs = JobGetSerializer(self.querysets, many=True).data
         return Response(
             {"data": jobs, "total_count": data_count}, status=status.HTTP_200_OK
         )
+    
