@@ -84,40 +84,26 @@ class JobView(APIView):
         jobs = JobGetSerializer(self.querysets, many=True).data
         return Response({"data": jobs, "total_count": data_count}, status=status.HTTP_200_OK)
 
-    def patch(self, request):
-        data = request.data.copy()
-        files = request.FILES.getlist('attachments')
-        data.setlist('attachments', files)
-
-        job_id = data.get("id")
-        job = Job.objects.filter(id=job_id).first()
-        if job:
-            serial_data = self.serializer_class(job, data=data, partial=True)
-            if serial_data.is_valid():
-                serial_data.save()
-                return Response({"data": serial_data.data}, status=status.HTTP_200_OK)
-        return Response({"message": "invalid data", "errors": serial_data.errors}, status=status.HTTP_400_BAD_REQUEST)
+    def delete(self, request):
+        data = request.data
+        job = Job.objects.get(id=data.get("id"))
+        job.delete()
+        return Response({"message": "Job deleted successfully"}, status=status.HTTP_200_OK)
 
     def put(self, request):
-        data = request.data.copy()
-        files = request.FILES.getlist('attachments')
-        data.setlist('attachments', files)
+        data = request.data
+        job = Job.objects.get(id=data.get("id"))
+        serial_data = self.serializer_class(job, data=data)
+        if serial_data.is_valid():
+            serial_data.save()
+            return Response({"data": serial_data.data}, status=status.HTTP_200_OK)
+        return Response({"message": "invalid data", "errors": serial_data.errors}, status=status.HTTP_400_BAD_REQUEST)
 
-        job_id = data.get("id")
-        job = Job.objects.filter(id=job_id).first()
-        if job:
-            serial_data = self.serializer_class(job, data=data)
-            if serial_data.is_valid():
-                serial_data.save()
-                return Response(
-                    {
-                        "data": serial_data.data
-                    },
-                    status=status.HTTP_200_OK
-                )
-        return Response(
-            {
-                "message": "invalid data", "errors": serial_data.errors
-            },
-            status=status.HTTP_400_BAD_REQUEST
-        )
+    def patch(self, request):
+        data = request.data
+        job = Job.objects.get(id=data.get("id"))
+        serial_data = self.serializer_class(job, data=data, partial=True)
+        if serial_data.is_valid():
+            serial_data.save()
+            return Response({"data": serial_data.data}, status=status.HTTP_200_OK)
+        return Response({"message": "invalid data", "errors": serial_data.errors}, status=status.HTTP_400_BAD_REQUEST)
