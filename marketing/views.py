@@ -9,12 +9,12 @@ from django.shortcuts import render, redirect
 from rest_framework.views import APIView
 from rest_framework import status, generics
 from rest_framework.response import Response
-from .models import Organization, Job
-from .serializers import OrganizationCreateSerializer, OrganizationGetSerializer, JobCreateSerializer, JobGetSerializer
+from .models import Organisation, Job
+from .serializers import OrganisationCreateSerializer, OrganisationGetSerializer, JobCreateSerializer, JobGetSerializer
 
-class OrganizationView(generics.CreateAPIView):
-    queryset = Organization.objects.all()
-    serializer_class = OrganizationCreateSerializer
+class OrganisationView(generics.CreateAPIView):
+    queryset = Organisation.objects.all()
+    serializer_class = OrganisationCreateSerializer
 
     def perform_create(self, serializer):
         organization = serializer.save()
@@ -29,7 +29,7 @@ class OrganizationView(generics.CreateAPIView):
         # Check for verification success message
         success_message = request.session.pop('verification_success', None)
         # Check for duplicate email
-        if Organization.objects.filter(email=data.get('email')).exists():
+        if Organisation.objects.filter(email=data.get('email')).exists():
             return Response({"email": ["Organization with this email already exists."]}, status=status.HTTP_400_BAD_REQUEST)
         # Check for required fields
         required_fields = ['name', 'contact_details', 'industry_type', 'location', 'email', 'created_by']
@@ -48,7 +48,7 @@ class OrganizationView(generics.CreateAPIView):
     
     def get(self, request, *args, **kwargs):
         organizations = self.get_queryset()
-        serializer = OrganizationGetSerializer(organizations, many=True)
+        serializer = OrganisationGetSerializer(organizations, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
 def send_otp_email(to_email, otp):
@@ -70,9 +70,9 @@ class VerifyOTPView(APIView):
         organization_id = request.session.get('organization_id')
         if organization_id:
             try:
-                organization = Organization.objects.get(id=organization_id)
+                organization = Organisation.objects.get(id=organization_id)
                 return render(request, 'verify_otp.html', {'email': organization.email})
-            except Organization.DoesNotExist:
+            except Organisation.DoesNotExist:
                 return Response({'message': 'Organization not found'}, status=status.HTTP_404_NOT_FOUND)
         return Response({'message': 'Session data not found'}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -91,7 +91,7 @@ class VerifyOTPView(APIView):
         if not (email and otp and organization_id and stored_otp):
             return Response({'message': 'Missing required parameters'}, status=status.HTTP_400_BAD_REQUEST)
         try:
-            organization = Organization.objects.get(id=organization_id, email=email)
+            organization = Organisation.objects.get(id=organization_id, email=email)
             if otp == stored_otp:
                 # Check if OTP is within valid time (10 minutes)
                 if otp_created_at:
@@ -108,7 +108,7 @@ class VerifyOTPView(APIView):
                     return Response({'message': 'OTP creation time not found'}, status=status.HTTP_400_BAD_REQUEST)
             else:
                 return Response({'message': 'Invalid OTP'}, status=status.HTTP_400_BAD_REQUEST)
-        except Organization.DoesNotExist:
+        except Organisation.DoesNotExist:
             return Response({'message': 'Organization not found'}, status=status.HTTP_404_NOT_FOUND)
 
 class JobView(APIView):

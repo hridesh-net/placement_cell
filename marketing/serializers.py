@@ -1,15 +1,15 @@
 from rest_framework import serializers
-from .models import Organization, Job
+from .models import Organisation, Job
 
-class OrganizationCreateSerializer(serializers.ModelSerializer):
+class OrganisationCreateSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Organization
+        model = Organisation
         fields = '__all__'
         read_only_fields = ('id','email_verified')
 
-class OrganizationGetSerializer(serializers.ModelSerializer):
+class OrganisationGetSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Organization
+        model = Organisation
         fields = '__all__'
 
 class JobCreateSerializer(serializers.ModelSerializer):

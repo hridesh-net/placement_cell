@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils import timezone
 from django.contrib.contenttypes.fields import GenericRelation
 from accounts.models import CustomUser
 from attachments.models import Attachment
@@ -21,7 +20,7 @@ JOB_TYPE = (
     ("internship", "Internship"),
 )
 
-class Organization(models.Model):
+class Organisation(models.Model):
     name = models.CharField(max_length=100)
     website = models.URLField(blank=True, null=True)
     logo = models.ImageField(upload_to="company_logos/", null=True, blank=True)
@@ -53,7 +52,7 @@ class Job(models.Model):
     eligibility_criteria = models.TextField()
     deadline = models.DateTimeField()
     stipend_salary = models.CharField(max_length=100, blank=True, null=True)
-    company = models.ForeignKey(Organization, on_delete=models.CASCADE)
+    company = models.ForeignKey(Organisation, on_delete=models.CASCADE)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="open")
     openings = models.PositiveIntegerField(default=1)
     custom_ques = models.JSONField(blank=True, null=True)
