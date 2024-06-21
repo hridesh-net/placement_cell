@@ -127,7 +127,7 @@ class VerifyOTPView(APIView):
 
 class JobView(APIView):
     serializer_class = JobCreateSerializer
-    queryset = Job.objects.all()
+    querysets = Job.objects.all()
 
     def post(self, request):
         data = request.data
@@ -143,7 +143,7 @@ class JobView(APIView):
         return Response({"message": "invalid data"}, status=status.HTTP_400_BAD_REQUEST)
 
     def get(self, request):
-        data_count = querysets.count()
+        data_count = self.querysets.count()
         params = request.query_params.dict()
 
         if params.get("id"):
@@ -152,9 +152,9 @@ class JobView(APIView):
             return Response(
                 {"data": jobs, "total_count": data_count}, status=status.HTTP_200_OK
             )
-    
+
         if params.get("title"):
-            querysets = self.queryset.filter(title__icontains(params.get("title")))
+            querysets = self.querysets.filter(title__icontains=params.get("title"))
             jobs = JobGetSerializer(querysets, many=True).data
             return Response(
                 {"data": jobs, "total_count": data_count}, status=status.HTTP_200_OK
@@ -177,14 +177,14 @@ class JobView(APIView):
             )
 
         if 'location' in params:
-            querysets = self.querysets.filter(company__location__icontains=params['location'])
+            querysets = self.querysets.filter(company_location_icontains=params['location'])
             jobs = JobGetSerializer(querysets, many=True).data
             return Response(
                 {"data": jobs, "total_count": data_count}, status=status.HTTP_200_OK
             )
 
+
         jobs = JobGetSerializer(self.querysets, many=True).data
         return Response(
             {"data": jobs, "total_count": data_count}, status=status.HTTP_200_OK
         )
-    
