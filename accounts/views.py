@@ -8,8 +8,6 @@ from rest_framework.authtoken.models import Token
 
 from django.conf import settings
 from django.utils import timezone
-from django.db import IntegrityError
-from django.contrib.auth.hashers import check_password
 from django.http import JsonResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, get_user_model
 

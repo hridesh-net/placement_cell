@@ -9,7 +9,6 @@ from attachments.models import Attachment
 from accounts.models import CustomUser
 from marketing.models import Organisation
 
-
 # Create your models here.
 
 STATUS_CHOICES = (

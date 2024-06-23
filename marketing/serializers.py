@@ -5,14 +5,23 @@ from rest_framework import serializers
 from django.contrib.contenttypes.models import ContentType
 from attachments.serializers import AttachmentCreateSerializer
 
-
 class OrganisationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Organisation
         fields = ['id', 'name', 'website', 'logo', 'contact_details',
                   'industry_type', 'location', 'created_by']
 
+class OrganisationCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Organisation
+        fields = '__all__'
+        read_only_fields = ('id','email_verified')
 
+class OrganisationGetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Organisation
+        fields = '__all__'
+        
 class JobCreateSerializer(serializers.ModelSerializer):
     company_id = serializers.PrimaryKeyRelatedField(
         queryset=Organisation.objects.all(), source='company', write_only=True)

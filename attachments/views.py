@@ -1,9 +1,7 @@
 from django.shortcuts import render
-
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from django.db.models import Q
 from .serializers import *
 from .models import *
 
@@ -11,7 +9,6 @@ from .models import *
 class Attachment(APIView):
     serializer_class = AttachmentCreateSerializer
     querysets = Attachment.objects.all()
-
     def post(self, request):
         try:
             data = request.data
