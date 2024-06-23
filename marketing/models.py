@@ -1,11 +1,7 @@
 from django.db import models
-from attachments.models import Attachment
 from django.contrib.contenttypes.fields import GenericRelation
-
 from accounts.models import CustomUser
-
-# Create your models here.
-
+from attachments.models import Attachment
 
 STATUS_CHOICES = [
     ("open", "Open"),
@@ -24,20 +20,27 @@ JOB_TYPE = (
     ("internship", "Internship"),
 )
 
-
 class Organisation(models.Model):
     name = models.CharField(max_length=100)
-    website = models.URLField()
+    website = models.URLField(blank=True, null=True)
     logo = models.ImageField(upload_to="company_logos/", null=True, blank=True)
     contact_details = models.CharField(max_length=100, unique=True)
     industry_type = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
-
     created_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    email = models.EmailField(unique=True, null=False, default="admin@example.com")
+    email_verified = models.BooleanField(default=False)
+    founded_date = models.DateField(blank=True, null=True)
+    number_of_employees = models.IntegerField(blank=True, null=True)
+    annual_revenue = models.DecimalField(max_digits=15, decimal_places=2, blank=True, null=True)
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['created_by'], name='unique_created_by')
+        ]
+        
     def __str__(self):
         return self.name
-
 
 class Job(models.Model):
     title = models.CharField(max_length=100)
