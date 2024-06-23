@@ -11,28 +11,28 @@ from utils.pagination import SpecificPagination
 # Create your views here.
 
 class OrganisationView(APIView):
-    queryset = Organisation.objects.all()
+    querysets = Organisation.objects.all()
     serializer_class = OrganisationCreateSerializer
 
     def get(self, request):
         params = request.query_params.dict()
-        data_count = self.queryset.count()
+        data_count = self.querysets.count()
 
         if params.get("id"):
-            queryset = self.queryset.filter(id=params.get("id"))
-            org = OrganisationGetSerializer(queryset, many=True).data
+            querysets = self.querysets.filter(id=params.get("id"))
+            org = OrganisationGetSerializer(querysets, many=True).data
             return Response(
                 {"data": org, "total_count": data_count}, status=status.HTTP_200_OK
             )
 
         if params.get("name"):
-            queryset = self.queryset.filter(name__icontains=params.get("name"))
-            org = OrganisationGetSerializer(queryset, many=True).data
+            querysets = self.querysets.filter(name__icontains=params.get("name"))
+            org = OrganisationGetSerializer(querysets, many=True).data
             return Response(
                 {"data": org, "total_count": data_count}, status=status.HTTP_200_OK
             )
 
-        org = OrganisationGetSerializer(self.queryset, many=True).data
+        org = OrganisationGetSerializer(self.querysets, many=True).data
         return Response(
             {"data": org, "total_count": data_count}, status=status.HTTP_200_OK
         )
@@ -52,7 +52,7 @@ class OrganisationView(APIView):
 
 class JobView(APIView):
     serializer_class = JobCreateSerializer
-    queryset = Job.objects.all()
+    querysets = Job.objects.all()
     pagination_class = SpecificPagination()
 
     def post(self, request):
@@ -68,29 +68,29 @@ class JobView(APIView):
         return Response({"message": "invalid data"}, status=status.HTTP_400_BAD_REQUEST)
 
     def get(self, request):
-        queryset = self.queryset
+        querysets = self.querysets
         params = request.query_params
 
         if 'id' in params:
-            queryset = queryset.filter(id=params.get('id'))
+            querysets = querysets.filter(id=params.get('id'))
 
         if 'title' in params:
-            queryset = queryset.filter(title__icontains=params.get('title'))
+            querysets = querysets.filter(title__icontains=params.get('title'))
 
         if 'company' in params:
-            queryset = queryset.filter(company=params.get('company'))
+            querysets = querysets.filter(company=params.get('company'))
 
         if 'work_location' in params:
-            queryset = queryset.filter(work_location=params.get('work_location'))
+            querysets = querysets.filter(work_location=params.get('work_location'))
 
         if 'location' in params:
-            queryset = queryset.filter(company__location__icontains=params.get('location'))
+            querysets = querysets.filter(company__location__icontains=params.get('location'))
 
-        paginated_response = self.pagination_class.pagination_models(request, queryset, params, JobGetSerializer)
+        paginated_response = self.pagination_class.pagination_models(request, querysets, params, JobGetSerializer)
         if paginated_response is not None:
             return paginated_response
 
-        jobs = JobGetSerializer(queryset, many=True).data
+        jobs = JobGetSerializer(querysets, many=True).data
         return Response(
-            {"data": jobs, "total_count": queryset.count()}, status=status.HTTP_200_OK
+            {"data": jobs, "total_count": querysets.count()}, status=status.HTTP_200_OK
         )
