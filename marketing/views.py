@@ -1,5 +1,4 @@
 from django.shortcuts import render
-
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -7,33 +6,33 @@ from rest_framework import status
 from .models import *
 from .serializers import *
 from utils.mail import organization_registration_email, job_posted_email
+from utils.pagination import SpecificPagination
 
 # Create your views here.
 
-
 class OrganisationView(APIView):
-    querysets = Organisation.objects.all()
+    queryset = Organisation.objects.all()
     serializer_class = OrganisationCreateSerializer
 
     def get(self, request):
         params = request.query_params.dict()
-        data_count = self.querysets.count()
+        data_count = self.queryset.count()
 
         if params.get("id"):
-            querysets = self.querysets.filter(id=params.get("id"))
-            org = OrganisationGetSerializer(querysets, many=True).data
+            queryset = self.queryset.filter(id=params.get("id"))
+            org = OrganisationGetSerializer(queryset, many=True).data
             return Response(
                 {"data": org, "total_count": data_count}, status=status.HTTP_200_OK
             )
 
         if params.get("name"):
-            querysets = self.querysets.filter(name__icontains=params.get("name"))
-            org = OrganisationGetSerializer(querysets, many=True).data
+            queryset = self.queryset.filter(name__icontains=params.get("name"))
+            org = OrganisationGetSerializer(queryset, many=True).data
             return Response(
                 {"data": org, "total_count": data_count}, status=status.HTTP_200_OK
             )
 
-        org = OrganisationGetSerializer(self.querysets, many=True).data
+        org = OrganisationGetSerializer(self.queryset, many=True).data
         return Response(
             {"data": org, "total_count": data_count}, status=status.HTTP_200_OK
         )
@@ -42,7 +41,7 @@ class OrganisationView(APIView):
         data = request.data
         serial_data = self.serializer_class(data=data)
         if serial_data.is_valid():
-            instance=serial_data.save()
+            instance = serial_data.save()
             # organization registered mail
             if instance.created_by:
                 organization_registration_email(instance.name, instance.created_by.email)
@@ -53,14 +52,14 @@ class OrganisationView(APIView):
 
 class JobView(APIView):
     serializer_class = JobCreateSerializer
-    querysets = Job.objects.all()
+    queryset = Job.objects.all()
+    pagination_class = SpecificPagination()
 
     def post(self, request):
         data = request.data
         serial_data = self.serializer_class(data=data)
         if serial_data.is_valid():
-            instance=serial_data.save()
-            #  job post mail
+            instance = serial_data.save()
             instance_data = JobGetSerializer(instance).data
             if instance.company and instance.company.created_by:
                 job_posted_email(instance_data, instance.company.created_by.email)
@@ -69,49 +68,29 @@ class JobView(APIView):
         return Response({"message": "invalid data"}, status=status.HTTP_400_BAD_REQUEST)
 
     def get(self, request):
-        data_count = self.querysets.count()
-        params = request.query_params.dict()
+        queryset = self.queryset
+        params = request.query_params
 
-        if params.get("id"):
-            querysets = self.querysets.filter(id=params.get("id"))
-            jobs = JobGetSerializer(querysets, many=True).data
-            return Response(
-                {"data": jobs, "total_count": data_count}, status=status.HTTP_200_OK
-            )
+        if 'id' in params:
+            queryset = queryset.filter(id=params.get('id'))
 
-        if params.get("title"):
-            querysets = self.querysets.filter(title__icontains=params.get("title"))
-            jobs = JobGetSerializer(querysets, many=True).data
-            return Response(
-                {"data": jobs, "total_count": data_count}, status=status.HTTP_200_OK
-            )
-        
-        ############# Changed this for company ############### 
-        if params.get("company"):
-            querysets = self.querysets.filter(company=params.get("company"))
-            jobs = JobGetSerializer(querysets, many=True).data
-            return Response(
-                {"data": jobs, "total_count": data_count}, status=status.HTTP_200_OK
-            )
+        if 'title' in params:
+            queryset = queryset.filter(title__icontains=params.get('title'))
 
-        ############# Changed this for work location ############### 
-        if params.get("work_location"):
-            querysets = self.querysets.filter(work_location=params.get("work_location"))
-            jobs = JobGetSerializer(querysets, many=True).data
-            return Response(
-                {"data": jobs, "total_count": data_count}, status=status.HTTP_200_OK
-            )
+        if 'company' in params:
+            queryset = queryset.filter(company=params.get('company'))
+
+        if 'work_location' in params:
+            queryset = queryset.filter(work_location=params.get('work_location'))
 
         if 'location' in params:
-            querysets = self.querysets.filter(company__location__icontains=params['location'])
-            jobs = JobGetSerializer(querysets, many=True).data
-            return Response(
-                {"data": jobs, "total_count": data_count}, status=status.HTTP_200_OK
-            )
+            queryset = queryset.filter(company__location__icontains=params.get('location'))
 
+        paginated_response = self.pagination_class.pagination_models(request, queryset, params, JobGetSerializer)
+        if paginated_response is not None:
+            return paginated_response
 
-        jobs = JobGetSerializer(self.querysets, many=True).data
+        jobs = JobGetSerializer(queryset, many=True).data
         return Response(
-            {"data": jobs, "total_count": data_count}, status=status.HTTP_200_OK
+            {"data": jobs, "total_count": queryset.count()}, status=status.HTTP_200_OK
         )
-    
