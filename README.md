@@ -91,6 +91,22 @@ python manage.py generate_fake_data <count>
 ```shell
 python manage.py generate_fake_data 100
 ```
+
+# Use NLP for matching resumes with JD
+
+Obtain Google API key from : https://aistudio.google.com/app/apikey
+place it in .env like (GOOGLE_API_KEY = YOUR_API_KEY)
+1. CD NLP
+2. CD src
+3. CD TFIDF_APPROACH
+4. run app.py
+
+# For Testing
+1. open postman.
+2. Go on Body. -> select Form data.
+3. make 2 keys 'resume' and 'job_description' select type of both as file.
+4. make a POST request on it.
+
 ## Contributers
 
 - [Dhruv Soni](https://github.com/Dhruv-net)
