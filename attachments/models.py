@@ -16,15 +16,27 @@ ATTACHMENT_TYPE = (
 )
 
 
+# def attachment_upload(instance, filename):
+#     """Stores the attachment in a "per module/appname/primary key" folder"""
+#     return "attachments/{app}_{model}/{pk}/{filename}".format(
+#         app=instance.content_object._meta.app_label,
+#         model=instance.content_object._meta.object_name.lower(),
+#         pk=instance.content_object.pk,
+#         filename=filename,
+#     )
+
 def attachment_upload(instance, filename):
-    """Stores the attachment in a "per module/appname/primary key" folder"""
-    return "attachments/{app}_{model}/{pk}/{filename}".format(
+    if instance.content_object is None:
+        app = 'attachments'
+        model = 'attachment'
+        return f'{app}/{model}/{instance.object_id}/{filename}'
+    else:
         app=instance.content_object._meta.app_label,
         model=instance.content_object._meta.object_name.lower(),
         pk=instance.content_object.pk,
         filename=filename,
-    )
-
+        return f'{app}/{model}/{pk}/{filename}'
+        
 
 class AttachmentManager(models.Manager):
     def attachments_for_object(self, obj):
