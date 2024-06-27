@@ -121,6 +121,7 @@ class VerifyOTPView(APIView):
             return Response({'message': 'Missing required parameters'}, status=status.HTTP_400_BAD_REQUEST)
         try:
             organization = Organisation.objects.get(id=organization_id, email=email)
+            organization_registration_email(organization.name, organization.created_by.email)
             if otp == stored_otp:
                 # Check if OTP is within valid time (10 minutes)
                 if otp_created_at:
@@ -137,6 +138,7 @@ class VerifyOTPView(APIView):
                     return Response({'message': 'OTP creation time not found'}, status=status.HTTP_400_BAD_REQUEST)
             else:
                 return Response({'message': 'Invalid OTP'}, status=status.HTTP_400_BAD_REQUEST)
+            
         except Organisation.DoesNotExist:
             return Response({'message': 'Organization not found'}, status=status.HTTP_404_NOT_FOUND)
         serial_data = self.serializer_class(data=data)
