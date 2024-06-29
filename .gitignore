@@ -6,3 +6,14 @@ __pycache__/
 pc-ui
 *.pdf
 placement_cell_oauth_creds.json
+*.sqlite3
+*.db
+*.png
+*.jpg
+*.jpeg
+*.svg
+*.gif
+*.ico
+*.mp4
+*.webm
+*.wav

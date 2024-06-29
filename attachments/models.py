@@ -49,7 +49,8 @@ class Attachment(models.Model):
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey("content_type", "object_id")
-    attachment_file = models.FileField(_("attachment"), upload_to=attachment_upload)
+    attachment_file = models.FileField(
+        _("attachment"), upload_to=attachment_upload)
     attachment_type = models.CharField(
         choices=ATTACHMENT_TYPE, blank=True, null=True, max_length=500
     )
