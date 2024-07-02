@@ -112,4 +112,4 @@ place it in .env like (GOOGLE_API_KEY = YOUR_API_KEY)
 - [Dhruv Soni](https://github.com/Dhruv-net)
 - [Hridesh Sharma](https://github.com/hridesh-net)
 
-<span style='background-color: #141E1C;'>Python Expert</span>
+<span style='background-color: #3CF493;'>Python Expert</span>
