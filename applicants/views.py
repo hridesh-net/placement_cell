@@ -7,6 +7,8 @@ from rest_framework.authentication import TokenAuthentication
 from .models import *
 from .serializers import *
 
+from utils.pagination import SpecificPagination
+
  
 class ApplicantView(APIView):
     authentication_classes = (TokenAuthentication,)
@@ -146,6 +148,7 @@ class ApplicationView(APIView):
 
     serializer_class = ApplicationCreateSerializer
     querysets = Application.objects.all()
+    pagination_class = SpecificPagination()
 
     #############Application post api##################
     def post(self, request):
@@ -172,6 +175,8 @@ class ApplicationView(APIView):
 
     ########### application get api##############
     def get(self, request):
+        querysets = self.querysets
+        params = request.query_params
         data_count = self.querysets.count()
         applicant = request.query_params.get("applicant", None)
         applicant_profile = request.query_params.get("applicant_profile", None)
@@ -190,6 +195,12 @@ class ApplicationView(APIView):
                 {"data": application.data, "total_count": data_count},
                 status=status.HTTP_200_OK,
             )
+        
+        paginated_response = self.pagination_class.pagination_models(request, querysets, params, ApplicationGetSerializer)
+        if paginated_response is not None:
+            return paginated_response
+        
+
         application = ApplicationCreateSerializer(self.querysets, many=True)
         return Response(
             {"data": application.data, "total_count": data_count},
