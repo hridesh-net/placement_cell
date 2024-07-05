@@ -16,6 +16,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser, FormParser
 from utils.mail import organization_registration_email, job_posted_email
+from utils.pagination import SpecificPagination
 
 class OrganisationView(APIView):
     querysets = Organisation.objects.all()
@@ -154,6 +155,7 @@ class JobView(APIView):
     serializer_class = JobCreateSerializer
     querysets = Job.objects.all()
     parser_classes = (MultiPartParser, FormParser)
+    pagination_class = SpecificPagination()
 
     def post(self, request):
         data = request.data.copy()
@@ -173,6 +175,8 @@ class JobView(APIView):
     def get(self, request):
         data_count = self.querysets.count()
         params = request.query_params.dict()
+        querysets = self.querysets
+
 
         if params.get("id"):
             querysets = self.querysets.filter(id=params.get("id"))
@@ -183,18 +187,17 @@ class JobView(APIView):
             querysets = self.querysets.filter(
                 title__icontains=params.get("title"))
             querysets = self.querysets.filter(title__icontains=params.get("title"))
-            jobs = JobGetSerializer(querysets, many=True).data
-            return Response(
-                {"data": jobs, "total_count": data_count}, status=status.HTTP_200_OK
-            )
+            
         
-        ############# Changed this for company ############### 
         if params.get("company"):
             querysets = self.querysets.filter(company=params.get("company"))
             jobs = JobGetSerializer(querysets, many=True).data
             return Response({"data": jobs, "total_count": data_count}, status=status.HTTP_200_OK)
+          
+        if params.get("location"):
+            querysets = self.querysets.filter(location=params.get("location"))
 
-        ############# Changed this for work location ############### 
+
         if params.get("work_location"):
             querysets = self.querysets.filter(work_location=params.get("work_location"))
             jobs = JobGetSerializer(querysets, many=True).data
@@ -202,6 +205,7 @@ class JobView(APIView):
         return Response(
           {"data": jobs, "total_count": data_count}, status=status.HTTP_200_OK
         )
+      
 
           # Added more API 
     def delete(self, request):
@@ -209,14 +213,7 @@ class JobView(APIView):
         job = Job.objects.get(id=data.get("id"))
         job.delete()
         return Response({"message": "Job deleted successfully"}, status=status.HTTP_200_OK)
-
-        if 'location' in params:
-            querysets = self.querysets.filter(company_location_icontains=params['location'])
-            jobs = JobGetSerializer(querysets, many=True).data
-            return Response(
-                {"data": jobs, "total_count": data_count}, status=status.HTTP_200_OK
-            )
-
+    
     def put(self, request):
         data = request.data
         job = Job.objects.get(id=data.get("id"))
@@ -235,3 +232,11 @@ class JobView(APIView):
             return Response({"data": serial_data.data}, status=status.HTTP_200_OK)
         return Response({"message": "invalid data", "errors": serial_data.errors}, status=status.HTTP_400_BAD_REQUEST)
       
+    paginated_response = self.pagination_class.pagination_models(request, querysets, params, JobGetSerializer)
+    if paginated_response is not None:
+        return paginated_response
+
+    jobs = JobGetSerializer(querysets, many=True).data
+    return Response(
+        {"data": jobs, "total_count": querysets.count()}, status=status.HTTP_200_OK
+    )
