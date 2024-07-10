@@ -48,16 +48,18 @@ class Job(models.Model):
     work_location = models.CharField(
         max_length=10, choices=LOCATION_TYPE, default="onsite"
     )
-    job_type = models.CharField(max_length=10, choices=JOB_TYPE, default="full_time")
+    job_type = models.CharField(
+        max_length=10, choices=JOB_TYPE, default="full_time")
     eligibility_criteria = models.TextField()
     deadline = models.DateTimeField()
     stipend_salary = models.CharField(max_length=100, blank=True, null=True)
     company = models.ForeignKey(Organisation, on_delete=models.CASCADE)
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="open")
+    status = models.CharField(
+        max_length=10, choices=STATUS_CHOICES, default="open")
     openings = models.PositiveIntegerField(default=1)
     custom_ques = models.JSONField(blank=True, null=True)
     perks_benefits = models.TextField(blank=True, null=True)
-    attachment_o = GenericRelation(Attachment)
+    attachments = GenericRelation(Attachment)
 
     def __str__(self):
         return self.title
