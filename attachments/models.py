@@ -1,47 +1,30 @@
 import os
-
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
 
-# Create your models here.
-
 ATTACHMENT_TYPE = (
     ("resume", "Resume"),
     ("misc", "Miscellaneous"),
     ("academic", "Academic Docs"),
-    ("photo_id", "Miscellaneous"),
+    ("photo_id", "Photo ID"),
     ("certificates", "Certificates"),
 )
 
-
-# def attachment_upload(instance, filename):
-#     """Stores the attachment in a "per module/appname/primary key" folder"""
-#     return "attachments/{app}_{model}/{pk}/{filename}".format(
-#         app=instance.content_object._meta.app_label,
-#         model=instance.content_object._meta.object_name.lower(),
-#         pk=instance.content_object.pk,
-#         filename=filename,
-#     )
-
 def attachment_upload(instance, filename):
-    if instance.content_object is None:
-        app = 'attachments'
-        model = 'attachment'
-        return f'{app}/{model}/{instance.object_id}/{filename}'
-    else:
+    """Stores the attachment in a 'per module/appname/primary key' folder"""
+    return "attachments/{app}_{model}/{pk}/{filename}".format(
         app=instance.content_object._meta.app_label,
         model=instance.content_object._meta.object_name.lower(),
         pk=instance.content_object.pk,
         filename=filename,
-        return f'{app}/{model}/{pk}/{filename}'
+    )
 
 class AttachmentManager(models.Manager):
     def attachments_for_object(self, obj):
         object_type = ContentType.objects.get_for_model(obj)
         return self.filter(content_type__pk=object_type.id, object_id=obj.pk)
-
 
 class Attachment(models.Model):
     objects = AttachmentManager()
@@ -49,8 +32,7 @@ class Attachment(models.Model):
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey("content_type", "object_id")
-    attachment_file = models.FileField(
-        _("attachment"), upload_to=attachment_upload)
+    attachment_file = models.FileField(_("attachment"), upload_to=attachment_upload)
     attachment_type = models.CharField(
         choices=ATTACHMENT_TYPE, blank=True, null=True, max_length=500
     )
