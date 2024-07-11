@@ -80,45 +80,45 @@ class ApplicantProfileView(APIView):
 
         return Response({"message": "invalid data"}, status=status.HTTP_400_BAD_REQUEST)
 
-    # def get(self, request):
-    #     data_count = self.querysets.count()
-    #     params = request.query_params.dict()
-    #     if params.get("id"):
-    #         querysets = self.querysets.filter(id=params.get("id"))
-    #         applicants = self.serializer_class(querysets, many=True)
-    #         return Response(
-    #             {"data": applicants.data, "total_count": data_count},
-    #             status=status.HTTP_200_OK,
-    #         )
-    #     if params.get("name"):
-    #         querysets = self.querysets.filter(name__contains=params.get("name"))
-    #         applicants = self.serializer_class(querysets, many=True)
-    #         return Response(
-    #             {"data": applicants.data, "total_count": data_count},
-    #             status=status.HTTP_200_OK,
-    #         )
-    #     applicants = self.get_serializer_class(self.querysets, many=True)
-    #     return Response(
-    #         {"data": applicants.data, "total_count": data_count},
-    #         status=status.HTTP_200_OK,
-    #     )
-
-    ########## Changed this GET Method###########
     def get(self, request):
+        data_count = self.querysets.count()
         params = request.query_params.dict()
-        if 'id' in params:
-            querysets = self.querysets.filter(id=params['id'])
-        elif 'name' in params:
-            querysets = self.querysets.filter(applicant__name__icontains=params['name'])
-        else:
-            querysets = self.querysets
-
-        data_count = querysets.count()
-        applicants = self.get_serializer_class(querysets, many=True)
+        if params.get("id"):
+            querysets = self.querysets.filter(id=params.get("id"))
+            applicants = self.serializer_class(querysets, many=True)
+            return Response(
+                {"data": applicants.data, "total_count": data_count},
+                status=status.HTTP_200_OK,
+            )
+        if params.get("name"):
+            querysets = self.querysets.filter(name__contains=params.get("name"))
+            applicants = self.serializer_class(querysets, many=True)
+            return Response(
+                {"data": applicants.data, "total_count": data_count},
+                status=status.HTTP_200_OK,
+            )
+        applicants = self.get_serializer_class(self.querysets, many=True)
         return Response(
             {"data": applicants.data, "total_count": data_count},
             status=status.HTTP_200_OK,
         )
+
+    ########## Changed this GET Method###########
+    # def get(self, request):
+    #     params = request.query_params.dict()
+    #     if 'id' in params:
+    #         querysets = self.querysets.filter(id=params['id'])
+    #     elif 'name' in params:
+    #         querysets = self.querysets.filter(applicant__name__icontains=params['name'])
+    #     else:
+    #         querysets = self.querysets
+
+    #     data_count = querysets.count()
+    #     applicants = self.get_serializer_class(querysets, many=True)
+    #     return Response(
+    #         {"data": applicants.data, "total_count": data_count},
+    #         status=status.HTTP_200_OK,
+    #     )
 
     def put(self, request):
         data = request.data
@@ -177,6 +177,7 @@ class ApplicationView(APIView):
     def get(self, request):
         querysets = self.querysets
         params = request.query_params
+
         data_count = self.querysets.count()
         applicant = request.query_params.get("applicant", None)
         applicant_profile = request.query_params.get("applicant_profile", None)
@@ -190,17 +191,16 @@ class ApplicationView(APIView):
 
         if applicant_profile:
             querysets = self.querysets.filter(applicant_profile=applicant_profile)
-            application = ApplicationCreateSerializer(querysets, many=True)
-            return Response(
-                {"data": application.data, "total_count": data_count},
-                status=status.HTTP_200_OK,
-            )
         
         paginated_response = self.pagination_class.pagination_models(request, querysets, params, ApplicationGetSerializer)
         if paginated_response is not None:
             return paginated_response
         
-
+            application = ApplicationCreateSerializer(querysets, many=True)
+            return Response(
+                {"data": application.data, "total_count": data_count},
+                status=status.HTTP_200_OK,
+            )
         application = ApplicationCreateSerializer(self.querysets, many=True)
         return Response(
             {"data": application.data, "total_count": data_count},

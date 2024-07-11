@@ -4,6 +4,7 @@ from django.contrib.auth.admin import UserAdmin
 from accounts.models import CustomUser
 
 # Register your models here.
+from django.contrib.contenttypes.models import ContentType
 
 
 class CustomUserAdmin(UserAdmin):
@@ -56,3 +57,4 @@ class CustomUserAdmin(UserAdmin):
 
 
 admin.site.register(CustomUser, CustomUserAdmin)
+admin.site.register(ContentType)

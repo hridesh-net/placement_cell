@@ -1,4 +1,3 @@
-
 from rest_framework import serializers
 from django.contrib.contenttypes.models import ContentType
 from .models import Attachment, ATTACHMENT_TYPE
@@ -41,3 +40,5 @@ class AttachmentCreateSerializer(serializers.ModelSerializer):
             **validated_data,
         )
 
+
+    
