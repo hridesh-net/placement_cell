@@ -15,22 +15,6 @@ class Attachment(APIView):
             return Response({"data": self.serializer_class(attachment).data}, status=status.HTTP_201_CREATED)
         return Response({"message": "Invalid data", "errors": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
-    # def get(self, request):
-    #     queryset = Attachment.objects.all()
-    #     data_counter = queryset.count()
-
-    #     content_type = request.query_params.get("content_type")
-    #     object_id = request.query_params.get("object_id")
-    #     attachment_type = request.query_params.get("attachment_type")
-
-    #     if object_id:
-    #         queryset = queryset.filter(object_id=object_id)
-    #     if attachment_type:
-    #         queryset = queryset.filter(attachment_type=attachment_type)
-        
-    #     serializer = AttachmentCreateSerializer(queryset, many=True)
-    #     return Response({"data": serializer.data, "total_count": data_counter}, status=status.HTTP_200_OK)
-
     def get(self, request):
         data_counter = self.querysets.count()
         para = request.query_params.dict()
