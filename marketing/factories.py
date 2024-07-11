@@ -54,6 +54,7 @@ class JobFactory(DjangoModelFactory):
     title = factory.Faker("job")
     description = factory.Faker("text")
     work_location = factory.Faker("random_element", elements=["onsite", "remote"])
+    location = factory.Faker("city")
     job_type = factory.Faker("random_element", elements=["full_time", "part_time"])
     eligibility_criteria = factory.Faker("paragraph")
     deadline = factory.Faker("future_datetime", end_date="+30d")

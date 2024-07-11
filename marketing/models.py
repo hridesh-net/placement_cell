@@ -48,6 +48,7 @@ class Job(models.Model):
     work_location = models.CharField(
         max_length=10, choices=LOCATION_TYPE, default="onsite"
     )
+    location = models.CharField(max_length=100, default="jaipur")
     job_type = models.CharField(max_length=10, choices=JOB_TYPE, default="full_time")
     eligibility_criteria = models.TextField()
     deadline = models.DateTimeField()
@@ -58,6 +59,11 @@ class Job(models.Model):
     custom_ques = models.JSONField(blank=True, null=True)
     perks_benefits = models.TextField(blank=True, null=True)
     attachment_o = GenericRelation(Attachment)
+
+    @property
+    def attachment_o(self):
+        return self.attachment_o.all()
+
 
     def __str__(self):
         return self.title
