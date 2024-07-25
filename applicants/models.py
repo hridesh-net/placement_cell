@@ -28,7 +28,7 @@ YEAR_CHOICES = (
 class Skill(models.Model):
     name = models.CharField(max_length=100)
 
-    def __str__(self):
+    def _str_(self):
         return self.name
 
 
@@ -37,7 +37,7 @@ class Applicant(models.Model):
     email = models.EmailField(unique=True)
     phone_number = models.CharField(max_length=15)
 
-    def __str__(self):
+    def _str_(self):
         return self.name
 
 
@@ -75,7 +75,7 @@ class ApplicantProfile(models.Model):
         # Fetch the certificates attachments
         return self.attachments.filter(attachment_type="certificates")
 
-    def __str__(self):
+    def _str_(self):
         return self.applicant.name
 
 
@@ -88,5 +88,5 @@ class Application(models.Model):
     answers_to_ques = models.JSONField(blank=True, null=True)
     status = models.CharField(max_length=12, choices=STATUS_CHOICES, default="applied")
 
-    def __str__(self):
+    def _str_(self):
         return self.student.name

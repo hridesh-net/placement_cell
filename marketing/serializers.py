@@ -15,7 +15,20 @@ class OrganisationGetSerializer(serializers.ModelSerializer):
 class JobCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Job
-        fields = '__all__'
+        fields=("title",
+                "description",
+                "work_location",
+                "location",
+                "job_type",
+                "eligibility_criteria",
+                "deadline",
+                "stipend_salary",
+                "company",
+                "status",
+                "openings",
+                "custom_ques",
+                "perks_benefits",
+                )
 
 class JobGetSerializer(serializers.ModelSerializer):
     class Meta:

@@ -1,3 +1,4 @@
+import os
 from django.conf import settings
 from django.utils.html import strip_tags
 
@@ -23,7 +24,7 @@ def job_posted_email(job_data, recipient_email):
     template_name = 'utils/job_posted_email.html'
     context = {
         'job_title': job_data.get('title'),
-        'company_name': job_data.get('company', {}).get('name'),
+        # 'company_name': job_data.get('company', {}).get('name'),
         'work_location': job_data.get('work_location'),
         'job_type': job_data.get('job_type'),
         'eligibility_criteria': job_data.get('eligibility_criteria'),
@@ -32,6 +33,24 @@ def job_posted_email(job_data, recipient_email):
     }
     send_email(subject, template_name, context, [recipient_email])
 
+def application_successful(application_instance):
+    subject = 'Job Application Successful'
+    applicant = application_instance.applicant
+    job = application_instance.job
+
+    context = {
+        'applicant_name': applicant.name,
+        'job_title': job.title,
+        'job_description': job.description,
+        'work_location':job.work_location,
+        'location':job.location,
+        'benefits':job.perks_benefits 
+    }
+
+    template_name = 'utils/apply_job.html'
+    send_email(subject, template_name, context, [applicant.email])
+
+    
 
 def signup_confirmation_email(username, recipient_email):
     subject = 'Signup Confirmation'
@@ -45,9 +64,8 @@ def signup_confirmation_email(username, recipient_email):
 def send_email(subject, template_name, context, recipient_list):
     html_message = render_to_string(template_name, context)
     plain_message = strip_tags(html_message)
-    from_email = settings.EMAIL_HOST_USER
+    from_email = os.environ.get('EMAIL_HOST_USER')
 
     email = EmailMultiAlternatives(subject, plain_message, from_email, recipient_list)
     email.attach_alternative(html_message, "text/html")
     email.send()
-

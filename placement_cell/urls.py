@@ -20,6 +20,10 @@ from django.urls import include
 
 from accounts.views import google_callback, GoogleLogin
 
+
+from django.conf import settings
+from django.conf.urls.static import static
+
 urlpatterns = [
     path("admin/google/callback", google_callback, name="google_auth_callback"),
     path("admin/login", GoogleLogin.as_view(), name="google_login"),
